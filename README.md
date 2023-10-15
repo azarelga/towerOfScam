@@ -1,4 +1,6 @@
-<img src="https://github.com/azarelga/towerOfScam/assets/89150137/2ab602d4-f630-4a4d-bf0a-d2a97d028be1" width=400 align="center">
+<p align="center">
+<img src="https://github.com/azarelga/towerOfScam/assets/89150137/2ab602d4-f630-4a4d-bf0a-d2a97d028be1" width=350>
+</p>
 
 # Tower Of Scam
 Final Project Pemrograman Berbasis Obyek 
