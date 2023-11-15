@@ -1,6 +1,8 @@
 package com.towerofscam.characters;
 
-public class GameDev {
+import com.towerofscam.level.Ruangan;
+
+public class GameDev extends Ruangan{
 	private int health;
 	
 	public GameDev(int health) {
