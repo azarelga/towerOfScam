@@ -1,6 +1,6 @@
-package com.towerofscam.characters;
+package characters;
 
-import com.towerofscam.atribut.Item;
+import atribut.Item;
 
 public class Judol {
 	private int energy;

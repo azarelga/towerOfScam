@@ -1,6 +1,6 @@
-package com.towerofscam.atribut;
+package atribut;
 
-import com.towerofscam.level.Ruangan;
+import level.Ruangan;
 
 public class Item extends Ruangan{
 	private int number;

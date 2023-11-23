@@ -1,4 +1,4 @@
-package com.towerofscam.level;
+package level;
 
 public abstract class Ruangan {
    private boolean isEmpty;

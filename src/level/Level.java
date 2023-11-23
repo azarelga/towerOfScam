@@ -1,4 +1,4 @@
-package com.towerofscam.level;
+package level;
 
 import java.util.List;
 
