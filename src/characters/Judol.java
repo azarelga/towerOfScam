@@ -38,8 +38,8 @@ public class Judol {
 	}
 
 	public void MoveJudol(int newX, int newY) {
-		this.postXJ = newX;
-		this.postYJ = newY;
+		this.postXJ += newX;
+		this.postYJ += newY;
 	}
 
 	public int getPostXJ() {
