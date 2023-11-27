@@ -1,30 +1,29 @@
 package main;
 
-import java.awt.Rectangle;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentAdapter;
-
 import javax.swing.JFrame;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
-public class GameWindow extends JFrame {
-    private GameScreen screen;
+public class GameWindow {
+    private JFrame jframe;
 
-    public GameWindow(){
-        setTitle("Tower of Scam");
-        setSize(960,540);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setBackground(java.awt.Color.BLACK);
-        setLocationRelativeTo(null);
-        this.addComponentListener(new ComponentAdapter() {
+    public GameWindow(GameScreen screens){
+        jframe = new JFrame();
+        jframe.setTitle("Tower of Scam");
+        jframe.setResizable(true);
+        jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jframe.setLocationRelativeTo(null);
+        jframe.add(screens);
+        jframe.pack();
+        jframe.setVisible(true);
+        jframe.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent event) {
-                int W = 4;  
-                int H = 3;  
-                Rectangle b = event.getComponent().getBounds();
-                event.getComponent().setBounds(b.x, b.y, b.width, b.width*H/W);
+                int W = 140;  
+                int H = 100;  
+                int width = jframe.getWidth();
+                int height = width * H / W;
+                jframe.setSize(width, height);
             }
         });
-        screen = new GameScreen();
-        add(screen);
-        setVisible(true);
     }
 }
