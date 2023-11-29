@@ -1,5 +1,7 @@
 package inputs;
 
+import static utilities.Constants.Directions.*;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -8,8 +10,8 @@ import main.GameScreen;
 public class KeyboardInput implements KeyListener {
 
     private GameScreen gameScreen;
-    
-    public KeyboardInput(GameScreen gameScreen){
+
+    public KeyboardInput(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
     }
 
@@ -20,38 +22,45 @@ public class KeyboardInput implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_W:
-                gameScreen.judol.MoveJudol(0, -10);
-                break;
-            case KeyEvent.VK_S:
-                gameScreen.judol.MoveJudol(0, 10);
-                break;
-            case KeyEvent.VK_A:
-                gameScreen.judol.MoveJudol(-10, 0);
-                break;
-            case KeyEvent.VK_D:
-                gameScreen.judol.MoveJudol(10, 0);
-                break;
             case KeyEvent.VK_UP:
-                gameScreen.judol.MoveJudol(0, -10);
+            case KeyEvent.VK_W:
+                gameScreen.setDirection(UP);
                 break;
             case KeyEvent.VK_DOWN:
-                gameScreen.judol.MoveJudol(0, 10);
+            case KeyEvent.VK_S:
+                gameScreen.setDirection(DOWN);
                 break;
             case KeyEvent.VK_LEFT:
-                gameScreen.judol.MoveJudol(-10,0 );
+            case KeyEvent.VK_A:
+                gameScreen.setDirection(LEFT);
                 break;
             case KeyEvent.VK_RIGHT:
-                gameScreen.judol.MoveJudol(10,0);
+            case KeyEvent.VK_D:
+                gameScreen.setDirection(RIGHT);
                 break;
             case KeyEvent.VK_SPACE:
                 break;
         }
+        // gameScreen.setJumping(false);
+        // gameScreen.setMoving(false);
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        // TODO: Implement your code here
-        
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_UP:
+            case KeyEvent.VK_DOWN:
+            case KeyEvent.VK_W:
+            case KeyEvent.VK_S:
+                gameScreen.setJumping(false);
+                break;
+            case KeyEvent.VK_RIGHT:
+            case KeyEvent.VK_LEFT:
+            case KeyEvent.VK_A:
+            case KeyEvent.VK_D:
+                gameScreen.setMoving(false);
+                break;
+        }
+
     }
 }
