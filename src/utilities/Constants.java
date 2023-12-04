@@ -1,6 +1,10 @@
 package utilities;
 
 public class Constants {
+	public static class GameConstants {
+		public static final int X_OFFSET = 204;
+		public static final int Y_OFFSET = 819;
+	}
     public class Directions {
 		public static final int LEFT = 0;
 		public static final int UP = 1;

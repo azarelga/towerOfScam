@@ -1,20 +1,64 @@
 package main;
 
+import java.awt.Graphics;
+
+import characters.Judol;
+import gamestates.Gamestate;
+import gamestates.Menu;
+import gamestates.Playing;
+
 public class Game implements Runnable {
     private GameWindow gameWindow;
     private GameScreen gameScreen;
     private Thread gameThread;
+	private Playing playing;
+	private Menu menu;
+	public final static float SCALE = 2f;
     private final int FPS = 120;
 	private final int UPS_SET = 200;
+	public final static int GAME_WIDTH = 1440;
+	public final static int GAME_HEIGHT = 1024;
 
     public Game() {
-        gameScreen = new GameScreen();
+		initClasses();
+        gameScreen = new GameScreen(this);
         gameWindow = new GameWindow(gameScreen);
         gameScreen.requestFocus();
         startGameLoop();
     }
 	public void update() {
-		gameScreen.updateGame();
+		switch (Gamestate.state) {
+			case MENU:
+				menu.update();
+				break;
+			case PLAYING:
+				playing.update();
+				break;
+			default:
+				break;
+		}
+	}
+
+	public void render(Graphics g) {
+		switch (Gamestate.state) {
+			case MENU:
+				menu.draw(g);
+				break;
+			case PLAYING:
+				playing.draw(g);
+				break;
+			default:
+				break;
+		}
+	}
+
+	public void windowFocusLost() {
+		if (Gamestate.state == Gamestate.PLAYING) playing.getJudol().resetDirection();
+	}
+
+	private void initClasses() {
+		menu = new Menu(this);
+		playing = new Playing(this);
 	}
 
     private void startGameLoop() {
@@ -61,5 +105,11 @@ public class Game implements Runnable {
 			}
 		}
 
+	}
+	public Menu getMenu() {
+		return menu;
+	}
+	public Playing getPlaying() {
+		return playing;
 	}
 }
