@@ -3,12 +3,18 @@ package utilities;
 import static main.Game.GAME_HEIGHT;
 import static main.Game.GAME_WIDTH;
 
+import level.Ruangan;
+
 public class Constants {
 	public static class GameConstants {
-		public static final int X_OFFSET = 99;
-		public static final int Y_OFFSET = 552;
+		public static final int X_START = 69+Ruangan.roomWidth/2;
+		public static final int X_START_ROOM = 99;
+		public static final int Y_START = 651;
+		public static final float HORIZONTALDISTANCE = 300.0f;
+		public static final float VERTICALDISTANCE = 40.0f;
 	}
-    public class Directions {
+
+	public class Directions {
 		public static final int LEFT = 0;
 		public static final int UP = 1;
 		public static final int RIGHT = 2;
@@ -24,14 +30,14 @@ public class Constants {
 
 		public static int GetSpriteAmount(int player_action) {
 			switch (player_action) {
-			case IDLE:
-				return 6;
-			case JUMP:
-                return 5;
-			case RUNNING:
-				return 8;
-			default:
-				return 1;
+				case IDLE:
+					return 6;
+				case JUMP:
+					return 5;
+				case RUNNING:
+					return 8;
+				default:
+					return 1;
 			}
 		}
 	}

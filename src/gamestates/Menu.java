@@ -13,7 +13,7 @@ import utilities.ImportExport;
 public class Menu extends State implements StateMethods {
     private MenuButtons[] buttons = new MenuButtons[3];
     private BufferedImage background, logo;
-    private double logoScale = 0.23;
+    private double logoScale = 0.18;
 
     public Menu(Game game) {
         super(game);

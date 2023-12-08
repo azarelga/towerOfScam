@@ -7,7 +7,7 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 
 public class ImportExport {
-    public static final String PLAYER_ATLAS = "Judol.png";
+    public static final String JUDOL = "Judol.png";
     public static final String BACKGROUND = "Background.png";
     public static final String BACKGROUNDMENU = "Background_2.png";
     public static final String LOGOMENU = "logo_menu.png";
@@ -21,6 +21,7 @@ public class ImportExport {
     public static final String SETTINGS = "settings_button.png";
     public static final String PAUSE = "pause_button.png";
     public static final String HOME = "home_button.png";
+
 
     public static BufferedImage GetImage(String filename) {
         BufferedImage img = null;
