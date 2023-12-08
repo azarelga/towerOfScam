@@ -21,6 +21,7 @@ public class KeyboardInput implements KeyListener {
     public void keyTyped(KeyEvent e) {
     }
 
+    @SuppressWarnings("incomplete-switch")
     @Override
     public void keyPressed(KeyEvent e) {
         switch (Gamestate.state) {
@@ -35,6 +36,7 @@ public class KeyboardInput implements KeyListener {
         }
     }
 
+    @SuppressWarnings("incomplete-switch")
     @Override
     public void keyReleased(KeyEvent e) {
         pressedKeys.put(e.getKeyCode(), false);

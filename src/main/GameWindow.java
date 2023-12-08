@@ -11,7 +11,7 @@ public class GameWindow {
     public GameWindow(GameScreen screens){
         jframe = new JFrame();
         jframe.setTitle("Tower of Scam");
-        jframe.setResizable(true);
+        jframe.setResizable(false);
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jframe.setLocationRelativeTo(null);
         jframe.add(screens);
@@ -29,8 +29,8 @@ public class GameWindow {
         });
         jframe.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent event) {
-                int W = 140;  
-                int H = 100;  
+                int W = 16;  
+                int H = 9;  
                 int width = jframe.getWidth();
                 int height = width * H / W;
                 jframe.setSize(width, height);

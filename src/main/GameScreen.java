@@ -13,13 +13,16 @@ import static main.Game.GAME_WIDTH;
 
 public class GameScreen extends JPanel {
 
-    private Game game;
+    private Game game;	
+    private MouseInput mouseInputs;
+
 
     public GameScreen(Game game) {
+        mouseInputs = new MouseInput(this);
         this.game = game;
         setPanelSize();
         addKeyListener(new KeyboardInput(this));
-        addMouseListener(new MouseInput());
+        addMouseListener(mouseInputs);
     }
 
     private void setPanelSize() {

@@ -1,9 +1,12 @@
 package utilities;
 
+import static main.Game.GAME_HEIGHT;
+import static main.Game.GAME_WIDTH;
+
 public class Constants {
 	public static class GameConstants {
-		public static final int X_OFFSET = 204;
-		public static final int Y_OFFSET = 819;
+		public static final int X_OFFSET = 99;
+		public static final int Y_OFFSET = 552;
 	}
     public class Directions {
 		public static final int LEFT = 0;

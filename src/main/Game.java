@@ -16,8 +16,8 @@ public class Game implements Runnable {
 	public final static float SCALE = 2f;
     private final int FPS = 120;
 	private final int UPS_SET = 200;
-	public final static int GAME_WIDTH = 1440;
-	public final static int GAME_HEIGHT = 1024;
+	public final static int GAME_WIDTH = 1280;
+	public final static int GAME_HEIGHT = 720;
 
     public Game() {
 		initClasses();

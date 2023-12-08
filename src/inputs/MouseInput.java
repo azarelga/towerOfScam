@@ -1,22 +1,46 @@
 package inputs;
 
 import java.awt.event.MouseListener;
+
+import gamestates.Gamestate;
+import main.GameScreen;
+
 import java.awt.event.MouseEvent;
 
 public class MouseInput implements MouseListener {
+    private GameScreen gameScreen;
+
+    public MouseInput(GameScreen gameScreen) {
+        this.gameScreen = gameScreen;
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("Mouse Clicked");
+        System.out.println("Mouse Clicked at: " + e.getX() + ", " + e.getY() + "\n");
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        // TODO Auto-generated method stub
+        switch (Gamestate.state) {
+            case MENU:
+                gameScreen.getGame().getMenu().mousePressed(e);
+                break;
+            case PLAYING:
+                gameScreen.getGame().getPlaying().mousePressed(e);
+                break;
+        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
+        switch (Gamestate.state) {
+            case MENU:
+                gameScreen.getGame().getMenu().mouseReleased(e);
+                break;
+            case PLAYING:
+                gameScreen.getGame().getPlaying().mouseReleased(e);
+                break;
+        }
     }
 
     @Override
