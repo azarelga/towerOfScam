@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import atribut.Item;
+import level.Ruangan;
 import utilities.ImportExport;
 
 public class Judol extends Entity {
@@ -16,21 +17,22 @@ public class Judol extends Entity {
 	private int aniTick, aniIndex, aniSpeed = 25;
 	private int playerAction = IDLE;
 	private float speedX = 1.0f;
-	private float speedY = 0.5f;
-	private int scale = 1;
+	private float speedY = 1.27f;
+	private static float scale = ENTITYSCALE;
 	public boolean moving = false, jumping = false;
 	private boolean left, up, right, down;
 
 	// intrinsic variables
 	private int energy;
-	public int xIndex = 1;
+	private int xIndex = 1;
 	private int yIndex = 1;
+	
 	private int scoreMax;
 	private int currentLevel;
-
+	
 	// constructor
 	public Judol(int currentLevel, int energy) {
-		super(X_START, Y_START, 100, 100);
+		super(X_START, Y_START, (int)(100*scale), (int)(100*scale));
 		this.energy = energy;
 		this.scoreMax = 0;
 		this.currentLevel = currentLevel;
@@ -49,43 +51,60 @@ public class Judol extends Entity {
 		jumping = false;
 		if (left && !right && xIndex > 1 && getPostXJ() > X_START + (xIndex - 2) * HORIZONTALDISTANCE) {
 			MoveJudol(-speedX, 0);
-			moving = true;
+			if (yIndex == 1 && up != true) moving = true;
+			else jumping = true;
 			if (getPostXJ() <= X_START + (xIndex - 2) * HORIZONTALDISTANCE) {
 				xIndex--;
 				setLeft(false);
 				System.out.printf("SAMPE DI %d %d \n", xIndex, yIndex);
 				System.out.printf("SAMPE DI %d %d \n", getPostXJ(), getPostYJ());
-				ReceiveEnergy(-20);
 			}
 		}
 		if (right && !left && getPostXJ() < X_START + (xIndex) * HORIZONTALDISTANCE) {
 			MoveJudol(speedX, 0);
-			moving = true;
+			if ((yIndex == 1 && up != true) || (jumping == true && yIndex != 1)) moving = true;
+			else jumping = true;
 			if (getPostXJ() >= X_START + (xIndex) * HORIZONTALDISTANCE) {
 				xIndex++;
 				setRight(false);
 				System.out.printf("SAMPE DI %d %d \n", xIndex, yIndex);
 				System.out.printf("SAMPE DI %d %d \n", getPostXJ(), getPostYJ());
-				ReceiveEnergy(20);
 			}
 		}
-		if (up && !down && getPostYJ() > Y_START + (yIndex - 1) * VERTICALDISTANCE) {
+		if (up && !down && getPostYJ() > Y_START - (yIndex) * VERTICALDISTANCE) {
 			MoveJudol(0, -speedY);
 			jumping = true;
-			if (getPostYJ() <= Y_START + ((yIndex - 1) * VERTICALDISTANCE)) {
-
-				yIndex--;
+			if (getPostYJ() <= Y_START - ((yIndex) * VERTICALDISTANCE)) {
+				System.out.printf("SAMPE DI %d %d \n", xIndex, yIndex);
+				yIndex++;
 				setUp(false);
 			}
 		}
-		if (down && !up && getPostYJ() < Y_START + (yIndex + 1) * VERTICALDISTANCE) {
+		if (down && !up && getPostYJ() < Y_START - (yIndex-2) * VERTICALDISTANCE) {
 			MoveJudol(0, speedY);
 			jumping = true;
-			if (getPostYJ() >= Y_START + (yIndex + 1) * VERTICALDISTANCE) {
-				yIndex++;
+			if (getPostYJ() >= Y_START - (yIndex-2) * VERTICALDISTANCE) {
+				System.out.printf("SAMPE DI %d %d \n", xIndex, yIndex);
+				yIndex--;
 				setDown(false);
 			}
 		}
+	}
+	
+	public int getxIndex() {
+		return xIndex;
+	}
+
+	public void setxIndex(int xIndex) {
+		this.xIndex = xIndex;
+	}
+
+	public int getyIndex() {
+		return yIndex;
+	}
+
+	public void setyIndex(int yIndex) {
+		this.yIndex = yIndex;
 	}
 
 	private void setAnimation() {
@@ -101,10 +120,10 @@ public class Judol extends Entity {
 	}
 
 	public void render(Graphics g) {
-		g.drawImage(animations[playerAction][aniIndex], getPostXJ(), getPostYJ()-height, width * scale, height * scale, null);
-		g.setFont(g.getFont().deriveFont(20.0f));
-		g.setColor(Color.BLACK);
-		g.drawString(Integer.toString(GetEnergy()), (int) (getPostXJ() + width / 2), getPostYJ() - 115);
+		g.drawImage(animations[playerAction][aniIndex], getPostXJ()-20, getPostYJ()-85, width, height, null);
+		g.setFont(g.getFont().deriveFont(40.0f));
+		g.setColor(Color.BLUE);
+		g.drawString(Integer.toString(GetEnergy()), (int) (getPostXJ() + width / 2), getPostYJ() - 85);
 	}
 
 	private void updateAniTick() {
@@ -133,7 +152,14 @@ public class Judol extends Entity {
 		for (int i = 0; i < animations.length; i++) {
 			for (int j = 0; j < animations[i].length; j++) {
 				if (i == 0) {
-					animations[0][j] = img.getSubimage(100 + 256 * j, 128, 100, 100);
+					animations[0][0] = img.getSubimage(100, 131, 100, 100);
+					animations[0][1] = img.getSubimage(370, 131, 100, 100);
+					animations[0][2] = img.getSubimage(639, 131, 100, 100);
+					animations[0][3] = img.getSubimage(895, 131, 100, 100);
+					animations[0][4] = img.getSubimage(1151, 131, 100, 100);
+					animations[0][5] = img.getSubimage(1406, 131, 100, 100);
+					animations[0][6] = img.getSubimage(1663, 131, 100, 100);
+					animations[0][7] = img.getSubimage(1923, 131, 100, 100);
 				}
 				if (i == 1) {
 					animations[1][j] = img.getSubimage(121 + 256 * j, 380, 100, 100);
@@ -146,16 +172,17 @@ public class Judol extends Entity {
 	}
 
 	// intrinsic methods
-	public void CastItem(Item item) {
-		if (item.getOperasi() == '+') {
-			this.energy += item.getNumber();
-		} else if (item.getOperasi() == '-') {
-			this.energy -= item.getNumber();
-		} else if (item.getOperasi() == '*') {
-			this.energy *= item.getNumber();
-		} else if (item.getOperasi() == '/') {
-			this.energy /= item.getNumber();
+	public void CastItem(Ruangan ruangan) {
+		if (ruangan.getOperasi() == '+') {
+			this.energy += ruangan.getEnergy();
+		} else if (ruangan.getOperasi() == '-') {
+			this.energy -= ruangan.getEnergy();
+		} else if (ruangan.getOperasi() == '*') {
+			this.energy *= ruangan.getEnergy();
+		} else if (ruangan.getOperasi() == '/') {
+			this.energy /= ruangan.getEnergy();
 		}
+		ruangan.setIsEmpty(true);
 	}
 
 	public int GetEnergy() {
@@ -196,12 +223,13 @@ public class Judol extends Entity {
 	}
 
 	public void setUp(boolean b) {
-		up = b;
+		up = b;		
 		System.out.println(left + " " + right + " " + up + " " + down);
 	}
 
 	public void setDown(boolean b) {
-		down = b;
+		if (yIndex != 1 || down == true)
+			down = b;
 		System.out.println(left + " " + right + " " + up + " " + down);
 	}
 
@@ -214,6 +242,21 @@ public class Judol extends Entity {
 	public void setRight(boolean b) {
 		right = b;
 		System.out.println(left + " " + right + " " + up + " " + down);
+	}
+
+	public boolean isMoving() {
+		return moving;
+	}
+	public boolean isJumping() {
+		return jumping;
+	}
+
+	public void resetPosition() {
+		this.xIndex = 1;
+		this.yIndex = 1;
+		this.x = X_START;
+		this.y = Y_START;
+		this.energy = 5;
 	}
 
 }

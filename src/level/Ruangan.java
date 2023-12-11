@@ -1,5 +1,7 @@
 package level;
 
+import static utilities.Constants.GameConstants.*;
+
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -7,19 +9,25 @@ import java.awt.image.BufferedImage;
 
 import atribut.Item;
 import utilities.ImportExport;
+import utilities.Constants.GameConstants;
 
 public class Ruangan {
-    private boolean isEmpty;
+    public static final int RUANGAN = 0,GAMEDEV = 1, ITEM = 2;
+    protected int type = RUANGAN;
     private final float roomScale = 0.8f;
     public static int roomWidth;
     private static int roomHeight;
     private BufferedImage img;
+    
+    protected boolean isEmpty;
     protected int xPos, yPos;
+    protected boolean finalRoom;
 
-    public Ruangan(int xPos, int yPos) {
+    public Ruangan(int xPos, int yPos, boolean isFinalRoom) {
         this.xPos = xPos;
         this.yPos = yPos;
-        this.isEmpty = false;
+        this.isEmpty = true;
+        this.finalRoom = isFinalRoom;
         loadImg();
     }
 
@@ -27,6 +35,9 @@ public class Ruangan {
         this.img = ImportExport.GetImage(ImportExport.RUANGAN[0]);
         roomWidth = (int) (img.getWidth() * roomScale);
         roomHeight = (int) (img.getHeight() * roomScale);
+        GameConstants.resetConstants();
+        HORIZONTALDISTANCE = (HORIZONTALDISTANCE * roomScale);
+        VERTICALDISTANCE = roomHeight;
     }
 
     public boolean CekEmpty() {
@@ -36,13 +47,39 @@ public class Ruangan {
     public void setIsEmpty(boolean isEmpty) {
         this.isEmpty = isEmpty;
     }
+    public boolean getIsEmpty() {
+        return this.isEmpty;
+    }
 
     public void update() {
 
     }
 
+    public boolean getFinalRoom() {
+        return this.finalRoom;
+    }
+    
 	public void render(Graphics g) {
-        g.drawImage(img, xPos, yPos-roomHeight,roomWidth,roomHeight, null);
+        g.drawImage(img, (int)(X_START_ROOM+((xPos-1)*HORIZONTALDISTANCE)),(int)(Y_START-(yPos*VERTICALDISTANCE)),roomWidth,roomHeight, null);
 	}
+
+    public char getOperasi() {
+        return ' ';
+    }
+    public int getEnergy() {
+        return 0;
+    }
+    public void setEnergy(int energy) {
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void resetState() {
+        if (this.type == GAMEDEV || this.type == ITEM) {
+            this.isEmpty = false;
+        }
+    }
 
 }

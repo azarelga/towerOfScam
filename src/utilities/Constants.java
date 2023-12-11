@@ -1,17 +1,23 @@
 package utilities;
 
-import static main.Game.GAME_HEIGHT;
-import static main.Game.GAME_WIDTH;
-
 import level.Ruangan;
 
 public class Constants {
 	public static class GameConstants {
-		public static final int X_START = 69+Ruangan.roomWidth/2;
+		public static final int X_START = 69 + Ruangan.roomWidth / 2;
 		public static final int X_START_ROOM = 99;
 		public static final int Y_START = 651;
-		public static final float HORIZONTALDISTANCE = 300.0f;
-		public static final float VERTICALDISTANCE = 40.0f;
+		public static float HORIZONTALDISTANCE = 300.0f;
+		public static float VERTICALDISTANCE = 40.0f;
+
+		public static void resetConstants() {
+			HORIZONTALDISTANCE = 300.0f;
+			VERTICALDISTANCE = 40.0f;
+		}
+	}
+
+	public static class Buttons {
+		public static final float WIDEBUTTONSCALE = 0.173f;
 	}
 
 	public class Directions {
@@ -27,6 +33,7 @@ public class Constants {
 		public static final int IDLE = 2;
 		public static final int DYING = 3;
 		public static final int HIT = 4;
+		public static float ENTITYSCALE = 0.78f;
 
 		public static int GetSpriteAmount(int player_action) {
 			switch (player_action) {

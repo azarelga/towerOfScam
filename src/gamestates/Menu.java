@@ -13,6 +13,7 @@ import utilities.ImportExport;
 public class Menu extends State implements StateMethods {
     private MenuButtons[] buttons = new MenuButtons[3];
     private BufferedImage background, logo;
+    private boolean isLoading = false;
     private double logoScale = 0.18;
 
     public Menu(Game game) {
@@ -29,8 +30,8 @@ public class Menu extends State implements StateMethods {
 
     public void loadButtons() {
         buttons[0] = new MenuButtons((int)Game.GAME_WIDTH / 2, 400, ImportExport.PLAY, Gamestate.PLAYING);
-        buttons[1] = new MenuButtons((int)Game.GAME_WIDTH / 2, 480, ImportExport.LEVEL, Gamestate.PLAYING);
-        buttons[2] = new MenuButtons((int)Game.GAME_WIDTH / 2, 560, ImportExport.SETTINGS, Gamestate.PLAYING);
+        buttons[1] = new MenuButtons((int)Game.GAME_WIDTH / 2, 480, ImportExport.LEVEL, Gamestate.LEVELSELECT);
+        buttons[2] = new MenuButtons((int)Game.GAME_WIDTH / 2, 560, ImportExport.SETTINGS, Gamestate.SETTINGS);
     }
 
     @Override
@@ -39,6 +40,13 @@ public class Menu extends State implements StateMethods {
         g.drawImage(logo, (int) (Game.GAME_WIDTH / 2 - logo.getWidth() *logoScale/ 2), 60, (int)(logo.getWidth() * logoScale), (int)(logo.getHeight()*logoScale), null);
         for (MenuButtons mb : buttons)
             mb.draw(g);
+        if (isLoading) {
+            g.setColor(Color.WHITE);
+            g.fillRect(0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT);
+            g.setFont(g.getFont().deriveFont(70.0f));
+            g.setColor(Color.YELLOW);
+            g.drawString("Loading", 300,300);
+        }
     }
 
     @Override
@@ -84,9 +92,11 @@ public class Menu extends State implements StateMethods {
     public void mouseReleased(MouseEvent e) {
         for (MenuButtons mb : buttons) {
             if (isIn(e, mb)) {
-                if (mb.isMousePressed())
-                System.out.println("change to play!");
+                if (mb.isMousePressed()){
+                    if (mb.getState() == Gamestate.PLAYING)
+                        isLoading = true;
                     mb.applyGamestate();
+                }
                 break;
             }
         }

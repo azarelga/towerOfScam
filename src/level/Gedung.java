@@ -4,11 +4,31 @@ import java.awt.Graphics;
 
 public class Gedung {
     private int TotalRoom;
-    private int Position;
     private Ruangan[] Ruangan;
+    private int emptyCounter = 0;
 
     public int getTotalRoom() {
         return this.TotalRoom;
+    }
+
+    public Gedung(Ruangan[] Ruangan) {
+        this.Ruangan = Ruangan;
+        TotalRoom = Ruangan.length;
+    }
+
+    public void resetState() {
+        for (Ruangan ruangan : Ruangan) {
+            ruangan.resetState();
+        }
+    }
+    
+    public int countEmpty() {
+        for (Ruangan ruangan : Ruangan) {
+            if (!ruangan.getIsEmpty()) {
+                emptyCounter++;
+            }
+        }
+        return emptyCounter;
     }
 
     public void render(Graphics g) {
@@ -26,14 +46,6 @@ public class Gedung {
         this.TotalRoom = TotalRoom;
     }
 
-    public int getPosition() {
-        return this.Position;
-    }
-
-    public void setPosition(int Position) {
-        this.Position = Position;
-    }
-
     public Ruangan getRuangan(int x) {
         return this.Ruangan[x];
     }
@@ -42,10 +54,5 @@ public class Gedung {
         this.Ruangan = Ruangan;
     }
 
-    public Gedung(int TotalRoom, Ruangan[] Ruangan) {
-        this.TotalRoom = TotalRoom;
-        this.Position = 0;
-        this.Ruangan = Ruangan;
-    }
 
 }

@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import static utilities.Constants.Buttons.*;
 import gamestates.Gamestate;
 import main.Game;
 import utilities.ImportExport;
@@ -34,8 +35,8 @@ public class MenuButtons {
 
 	private void loadImgs() {
 		imgs = ImportExport.GetImage(button);
-		B_WIDTH=(int)(imgs.getWidth()*0.703);
-		B_HEIGHT=(int) (imgs.getHeight()*0.703);
+		B_WIDTH=(int)(imgs.getWidth()*WIDEBUTTONSCALE);
+		B_HEIGHT=(int) (imgs.getHeight()*WIDEBUTTONSCALE);
 		xOffsetCenter = B_WIDTH / 2;
 	}
 

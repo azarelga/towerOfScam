@@ -28,6 +28,12 @@ public class MouseInput implements MouseListener {
             case PLAYING:
                 gameScreen.getGame().getPlaying().mousePressed(e);
                 break;
+            case LEVELSELECT:
+                gameScreen.getGame().getLevelSelect().mousePressed(e);
+                break;
+            case SETTINGS:
+                gameScreen.getGame().getSettings().mousePressed(e);
+                break;
         }
     }
 
@@ -39,6 +45,12 @@ public class MouseInput implements MouseListener {
                 break;
             case PLAYING:
                 gameScreen.getGame().getPlaying().mouseReleased(e);
+                break;
+            case LEVELSELECT:
+                gameScreen.getGame().getLevelSelect().mouseReleased(e);
+                break;
+            case SETTINGS:
+                gameScreen.getGame().getSettings().mouseReleased(e);
                 break;
         }
     }

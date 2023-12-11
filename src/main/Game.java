@@ -1,17 +1,22 @@
 package main;
 
 import java.awt.Graphics;
+import java.awt.event.MouseListener;
 
 import characters.Judol;
 import gamestates.Gamestate;
+import gamestates.LevelSelect;
 import gamestates.Menu;
 import gamestates.Playing;
+import gamestates.Settings;
 
 public class Game implements Runnable {
     private GameWindow gameWindow;
     private GameScreen gameScreen;
     private Thread gameThread;
 	private Playing playing;
+	private Settings settings;
+	private LevelSelect levelselect;
 	private Menu menu;
 	public final static float SCALE = 2f;
     private final int FPS = 120;
@@ -34,6 +39,12 @@ public class Game implements Runnable {
 			case PLAYING:
 				playing.update();
 				break;
+			case LEVELSELECT:
+				levelselect.update();
+				break;
+			case SETTINGS:
+				settings.update();
+				break;
 			default:
 				break;
 		}
@@ -47,6 +58,12 @@ public class Game implements Runnable {
 			case PLAYING:
 				playing.draw(g);
 				break;
+			case LEVELSELECT:
+				levelselect.draw(g);
+				break;
+			case SETTINGS:
+				settings.draw(g);
+				break;
 			default:
 				break;
 		}
@@ -59,6 +76,8 @@ public class Game implements Runnable {
 	private void initClasses() {
 		menu = new Menu(this);
 		playing = new Playing(this);
+		levelselect = new LevelSelect(this);
+		settings = new Settings(this);
 	}
 
     private void startGameLoop() {
@@ -112,4 +131,10 @@ public class Game implements Runnable {
 	public Playing getPlaying() {
 		return playing;
 	}
+	public LevelSelect getLevelSelect() {
+		return levelselect;
+	}
+    public Settings getSettings() {
+        return settings;
+    }
 }
