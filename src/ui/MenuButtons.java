@@ -31,6 +31,9 @@ public class MenuButtons {
 
 	private void initBounds() {
 		bounds = new Rectangle(xPos - xOffsetCenter, yPos, B_WIDTH, B_HEIGHT);
+		if (button.equals(ImportExport.PAUSE)) {
+			bounds = new Rectangle(40, 40, imgs.getWidth(), imgs.getHeight());
+		}
 	}
 
 	private void loadImgs() {

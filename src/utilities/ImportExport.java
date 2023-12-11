@@ -23,7 +23,8 @@ public class ImportExport {
     public static final String[] DEBUFFS = { "debuff1.png", "debuff2.png" };
     public static final String ROOFTOP = "Ruangan_3.png";
     public static final String LOGO = "Logo.png";
-    public static final String RESUME = "resume_button.png";
+    public static final String RESUME = "resume.png";
+    public static final String RESTART = "restart.png";
     public static final String PLAY = "play_button.png";
     public static final String LEVEL = "level_button.png";
     public static final String SETTINGS = "settings_button.png";
