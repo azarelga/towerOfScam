@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Level{
-    private float scale;
+    // private float scale;
     private List<Gedung> Gedungs;
     private int LevelIndex;
     private boolean isBeaten;

@@ -7,7 +7,6 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 import main.Game;
-import ui.LevelButtons;
 import ui.SettingsButtons;
 import utilities.ImportExport;
 

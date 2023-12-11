@@ -2,12 +2,10 @@ package level;
 
 import static utilities.Constants.GameConstants.*;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 import java.awt.image.BufferedImage;
 
-import atribut.Item;
 import utilities.ImportExport;
 import utilities.Constants.GameConstants;
 

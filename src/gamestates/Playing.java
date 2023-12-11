@@ -5,26 +5,20 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import characters.Judol;
-import level.Gedung;
 import level.LevelManager;
 import level.Ruangan;
 import main.Game;
 import static main.Game.GAME_HEIGHT;
 import static main.Game.GAME_WIDTH;
-import static utilities.Constants.GameConstants.HORIZONTALDISTANCE;
-import static utilities.Constants.GameConstants.X_START_ROOM;
-import static utilities.Constants.GameConstants.Y_START;
 
 import utilities.ImportExport;
 
 public class Playing extends State implements StateMethods {
     private LevelManager levelManager;
     private Judol judol;
-    private Gedung[] gedung = new Gedung[2];
 
     private Map<Integer, Boolean> pressedKeys = new HashMap<>();
     private BufferedImage background;
@@ -42,8 +36,16 @@ public class Playing extends State implements StateMethods {
         pause_button = ImportExport.GetImage(ImportExport.PAUSE);
     }
 
+    public void loadLevel() {
+        levelManager.loadLevel();
+    }
+
     @Override
     public void update() {
+        if (Gamestate.control == 1) {
+            levelManager.loadLevel();
+            Gamestate.control = 0;
+        }
         judol.update();
         levelManager.update();
         checkJudolAndRoom();

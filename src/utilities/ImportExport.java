@@ -53,9 +53,9 @@ public class ImportExport {
     }
 
     public static Level buildLevels(int i) {
-        Level level = new Level(i+1);
-        switch (i+1) {
-            case 1:
+        Level level = new Level(i);
+        switch (i) {
+            case 0:
                 // level 1
                 level.addGedung(new Gedung(new Ruangan[] { 
                     new Ruangan(1, 1, false) }
@@ -65,13 +65,33 @@ public class ImportExport {
                         new GameDev(2, 2, 3),
                 }));
                 level.addGedung(new Gedung(new Ruangan[] {
-                        new Item(3, 1, 10, '-'),
-                        new GameDev(3, 2, 17)
+                        new Item(3, 1, 1, '-'),
+                        new GameDev(3, 2, 12)
                 }));
                 level.addGedung(new Gedung(new Ruangan[] { new Ruangan(4, 1, true) }));
+                System.out.println("Level 1 Entered");
                 break;
+            case 1:
                 // level 2
-            case 2:
+                System.out.println("Level 2 Entered");
+                level.addGedung(new Gedung(new Ruangan[] {
+                    new Ruangan(1, 1, false)
+                }));
+                level.addGedung(new Gedung(new Ruangan[] {
+                    new Ruangan(2,1,false),
+                    new Item(2, 2, 2,'*'),
+                    new GameDev(2, 3, 6),
+                }));
+                level.addGedung(new Gedung(new Ruangan[] {
+                    new Ruangan(3,1,false),
+                    new GameDev(3, 2, 12),
+                    new GameDev(3, 3, 24)
+                }));
+                level.addGedung(new Gedung(new Ruangan[] {
+                    new Ruangan(4,1,true)
+                }));
+                break;
+            default:
                 break;
                 // level 3
                 // level 4

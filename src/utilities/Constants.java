@@ -9,7 +9,7 @@ public class Constants {
 		public static final int Y_START = 651;
 		public static float HORIZONTALDISTANCE = 300.0f;
 		public static float VERTICALDISTANCE = 40.0f;
-
+		public static float SPEEDXCAMERA = 1.0f;
 		public static void resetConstants() {
 			HORIZONTALDISTANCE = 300.0f;
 			VERTICALDISTANCE = 40.0f;

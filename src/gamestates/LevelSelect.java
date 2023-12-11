@@ -1,9 +1,7 @@
 package gamestates;
 
-import static utilities.Constants.Buttons.WIDEBUTTONSCALE;
 
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -11,7 +9,6 @@ import java.awt.image.BufferedImage;
 
 import main.Game;
 import ui.LevelButtons;
-import ui.MenuButtons;
 import utilities.ImportExport;
 
 public class LevelSelect extends State implements StateMethods{
@@ -19,9 +16,7 @@ public class LevelSelect extends State implements StateMethods{
     private BufferedImage background;
     private LevelButtons buttons;
     private BufferedImage logo;
-    private BufferedImage home;
-    private int homeWidth;
-    private int homeHeight;
+    private int selectedLevel;
 
     public LevelSelect(Game game) {
         super(game);
@@ -37,7 +32,6 @@ public class LevelSelect extends State implements StateMethods{
 
     @Override
     public void update() {
-        // TODO Auto-generated method stub
     }
 
     @Override
@@ -69,11 +63,11 @@ public class LevelSelect extends State implements StateMethods{
     public void mousePressed(MouseEvent e) {
         for (int i = 0; i<11;i++) {
             if (isIn(e, buttons.getBounds()[i])) {
-                System.out.println(i + "Clicked");
                 buttons.setMousePressed(i, true);
             }
         }
     }
+
 
     private boolean isIn(MouseEvent e, Rectangle rectangle) {
         return rectangle.contains(e.getPoint());
@@ -84,6 +78,8 @@ public class LevelSelect extends State implements StateMethods{
         for (int i = 0; i<11;i++) {
             if (isIn(e, buttons.getBounds()[i])) {
                 if(buttons.isMousePressed()) {
+                    Gamestate.level = i;
+                    Gamestate.control = 1;
                     buttons.applyGamestate();
                 }
             }

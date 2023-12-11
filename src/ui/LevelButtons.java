@@ -35,7 +35,7 @@ public class LevelButtons {
 	private void initBounds() {
         bounds = new Rectangle[11];
         for (int i = 0; i < 10; i++) {
-            bounds[i] = new Rectangle((xPos + xSpace*(i%3)) - xOffsetCenter, (yPos + ySpace*(i%3)), B_WIDTH, B_HEIGHT);
+            bounds[i] = new Rectangle((xPos + xSpace*(i%3)) - xOffsetCenter, (yPos + ySpace*(i/3)), B_WIDTH, B_HEIGHT);
         }
 		bounds[10] = new Rectangle((int)(Game.GAME_WIDTH/2 - homeWidth/2), 550, homeWidth,homeHeight);
 	}
@@ -91,8 +91,12 @@ public class LevelButtons {
 	}
  
 	public void applyGamestate() {
+
 		if (levelState == 10) Gamestate.state = Gamestate.MENU;
-		else Gamestate.state = Gamestate.PLAYING;
+		else {
+			Gamestate.level = levelState;
+			Gamestate.state = Gamestate.PLAYING;
+		}
 	}
 
 	public void resetBools() {

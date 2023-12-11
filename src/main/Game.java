@@ -1,9 +1,7 @@
 package main;
 
 import java.awt.Graphics;
-import java.awt.event.MouseListener;
 
-import characters.Judol;
 import gamestates.Gamestate;
 import gamestates.LevelSelect;
 import gamestates.Menu;
@@ -11,26 +9,27 @@ import gamestates.Playing;
 import gamestates.Settings;
 
 public class Game implements Runnable {
-    private GameWindow gameWindow;
-    private GameScreen gameScreen;
-    private Thread gameThread;
+	private GameWindow gameWindow;
+	private GameScreen gameScreen;
+	private Thread gameThread;
 	private Playing playing;
 	private Settings settings;
 	private LevelSelect levelselect;
 	private Menu menu;
 	public final static float SCALE = 2f;
-    private final int FPS = 120;
+	private final int FPS = 120;
 	private final int UPS_SET = 200;
 	public final static int GAME_WIDTH = 1280;
 	public final static int GAME_HEIGHT = 720;
 
-    public Game() {
+	public Game() {
 		initClasses();
-        gameScreen = new GameScreen(this);
-        gameWindow = new GameWindow(gameScreen);
-        gameScreen.requestFocus();
-        startGameLoop();
-    }
+		gameScreen = new GameScreen(this);
+		gameWindow = new GameWindow(gameScreen);
+		gameScreen.requestFocus();
+		startGameLoop();
+	}
+
 	public void update() {
 		switch (Gamestate.state) {
 			case MENU:
@@ -70,7 +69,8 @@ public class Game implements Runnable {
 	}
 
 	public void windowFocusLost() {
-		if (Gamestate.state == Gamestate.PLAYING) playing.getJudol().resetDirection();
+		if (Gamestate.state == Gamestate.PLAYING)
+			playing.getJudol().resetDirection();
 	}
 
 	private void initClasses() {
@@ -80,12 +80,12 @@ public class Game implements Runnable {
 		settings = new Settings(this);
 	}
 
-    private void startGameLoop() {
-        gameThread = new Thread(this);
-        gameThread.start();
-    }
+	private void startGameLoop() {
+		gameThread = new Thread(this);
+		gameThread.start();
+	}
 
-    @Override
+	@Override
 	public void run() {
 
 		double timePerFrame = 1000000000.0 / FPS;
@@ -125,16 +125,24 @@ public class Game implements Runnable {
 		}
 
 	}
+
 	public Menu getMenu() {
 		return menu;
 	}
+
 	public Playing getPlaying() {
 		return playing;
 	}
+
 	public LevelSelect getLevelSelect() {
 		return levelselect;
 	}
-    public Settings getSettings() {
-        return settings;
-    }
+
+	public Settings getSettings() {
+		return settings;
+	}
+
+	public Graphics getGraphics() {
+		return null;
+	}
 }

@@ -1,6 +1,6 @@
 package gamestates;
 
-import java.awt.Color;
+// import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -13,7 +13,6 @@ import utilities.ImportExport;
 public class Menu extends State implements StateMethods {
     private MenuButtons[] buttons = new MenuButtons[3];
     private BufferedImage background, logo;
-    private boolean isLoading = false;
     private double logoScale = 0.18;
 
     public Menu(Game game) {
@@ -22,32 +21,29 @@ public class Menu extends State implements StateMethods {
         loadButtons();
     }
 
+
     public void loadBackground() {
         background = ImportExport.GetImage(ImportExport.BACKGROUNDMENU);
         logo = ImportExport.GetImage(ImportExport.LOGOMENU);
-        System.out.println((int)(logo.getWidth()*0.2) + " " + logo.getHeight());
+        System.out.println((int) (logo.getWidth() * 0.2) + " " + logo.getHeight());
     }
 
     public void loadButtons() {
-        buttons[0] = new MenuButtons((int)Game.GAME_WIDTH / 2, 400, ImportExport.PLAY, Gamestate.PLAYING);
-        buttons[1] = new MenuButtons((int)Game.GAME_WIDTH / 2, 480, ImportExport.LEVEL, Gamestate.LEVELSELECT);
-        buttons[2] = new MenuButtons((int)Game.GAME_WIDTH / 2, 560, ImportExport.SETTINGS, Gamestate.SETTINGS);
+        buttons[0] = new MenuButtons((int) Game.GAME_WIDTH / 2, 400, ImportExport.PLAY, Gamestate.PLAYING);
+        buttons[1] = new MenuButtons((int) Game.GAME_WIDTH / 2, 480, ImportExport.LEVEL, Gamestate.LEVELSELECT);
+        buttons[2] = new MenuButtons((int) Game.GAME_WIDTH / 2, 560, ImportExport.SETTINGS, Gamestate.SETTINGS);
     }
 
     @Override
     public void draw(Graphics g) {
         g.drawImage(background, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
-        g.drawImage(logo, (int) (Game.GAME_WIDTH / 2 - logo.getWidth() *logoScale/ 2), 60, (int)(logo.getWidth() * logoScale), (int)(logo.getHeight()*logoScale), null);
+        g.drawImage(logo, (int) (Game.GAME_WIDTH / 2 - logo.getWidth() * logoScale / 2), 60,
+                (int) (logo.getWidth() * logoScale), (int) (logo.getHeight() * logoScale), null);
         for (MenuButtons mb : buttons)
             mb.draw(g);
-        if (isLoading) {
-            g.setColor(Color.WHITE);
-            g.fillRect(0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT);
-            g.setFont(g.getFont().deriveFont(70.0f));
-            g.setColor(Color.YELLOW);
-            g.drawString("Loading", 300,300);
-        }
     }
+    
+    
 
     @Override
     public void update() {
@@ -58,7 +54,7 @@ public class Menu extends State implements StateMethods {
     public void keyPressed(KeyEvent e) {
         // TODO Auto-generated method stub
         // if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-        //     Gamestate.state = Gamestate.PLAYING;
+        // Gamestate.state = Gamestate.PLAYING;
         // }
     }
 
@@ -92,9 +88,7 @@ public class Menu extends State implements StateMethods {
     public void mouseReleased(MouseEvent e) {
         for (MenuButtons mb : buttons) {
             if (isIn(e, mb)) {
-                if (mb.isMousePressed()){
-                    if (mb.getState() == Gamestate.PLAYING)
-                        isLoading = true;
+                if (mb.isMousePressed()) {
                     mb.applyGamestate();
                 }
                 break;

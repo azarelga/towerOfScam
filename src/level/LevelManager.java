@@ -1,10 +1,8 @@
 package level;
 
 import java.awt.Graphics;
-import java.util.ArrayList;
 
-import atribut.GameDev;
-import atribut.Item;
+import gamestates.Gamestate;
 import main.Game;
 import utilities.ImportExport;
 
@@ -12,41 +10,36 @@ public class LevelManager {
 
     private Game game;
     private Level currentLevel;
-    private int lvlIndex;
 
     public LevelManager(Game game) {
         this.game = game;
-        lvlIndex=0;
-        currentLevel = new Level(lvlIndex);
-        currentLevel = ImportExport.buildLevels(lvlIndex);
+        loadLevel();
     }
     
+    public void loadLevel() {
+        currentLevel = new Level(Gamestate.level);
+        currentLevel = ImportExport.buildLevels(Gamestate.level);
+    }
+
     public void resetLevel() {
         currentLevel.resetState();
     }
-
+    
     public void update() {
         currentLevel.update();
     }
-
+    
     public void render(Graphics g) {
         currentLevel.render(g);
     }
-
+    
     public Level getCurrentLevel() {
-		return currentLevel;
+        return currentLevel;
 	}
-
-	public int getLevelIndex() {
-		return lvlIndex;
-	}
-
+    
     public void incrementLevel() {
-        ++lvlIndex;
+        Gamestate.level++;;
     }
-
-	public void setLevelIndex(int lvlIndex) {
-		this.lvlIndex = lvlIndex;
-	}
+    
 
 }
