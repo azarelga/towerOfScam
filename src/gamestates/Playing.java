@@ -85,8 +85,8 @@ public class Playing extends State implements StateMethods {
             g.drawString("Loading...", GAME_HEIGHT / 2 - fm.getHeight() / 2, GAME_WIDTH / 2 - fm.getAscent() / 2);
         }
         if (cleared) {
-            g.drawImage(levelClear, GAME_WIDTH / 2 - 360 / 2,
-                    210, 360, 340, null);
+            g.drawImage(levelClear, GAME_WIDTH / 2 - 385 / 2,
+                    190, 385, 364, null);
             clearButtons[0].draw(g);
             clearButtons[1].draw(g);
             pauseButtons[2].draw(g);
@@ -192,16 +192,16 @@ public class Playing extends State implements StateMethods {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if (levelManager.getCurrentLevel().getIsBeaten()) {
+        if (cleared) {
+            levelManager.getCurrentLevel().setIsBeaten(false);
             for (int i = 0; i < 2; i++) {
                 if (isIn(e, clearButtons[i].getBounds())) {
                     if (i == 0) {
-                        levelManager.getCurrentLevel().setIsBeaten(false);
                         levelManager.incrementLevel();
-                        Gamestate.control =1;
-                        cleared = false;
-                    } else
-                        clearButtons[i].applyGamestate();
+                        Gamestate.control = 1;
+                    } else levelManager.incrementLevel();
+                    clearButtons[i].applyGamestate();
+                    cleared = false;
                 }
             }
         }

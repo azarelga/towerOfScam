@@ -78,9 +78,11 @@ public class Level {
     }
 
     public boolean isAllEmpty() {
+        emptyCounter = 0;
         for (Gedung gedung : Gedungs) {
             emptyCounter = emptyCounter + gedung.countEmpty();
         }
+        System.out.printf("yang kosong: %d, banyak: %d", emptyCounter,jumlahRuangan);
         if (emptyCounter == jumlahRuangan) {
             return true;
         } else {
