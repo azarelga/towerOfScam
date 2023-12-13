@@ -7,7 +7,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import atribut.Item;
 import level.Ruangan;
 import utilities.ImportExport;
 
@@ -16,24 +15,25 @@ public class Judol extends Entity {
 	private BufferedImage[][] animations;
 	private int aniTick, aniIndex, aniSpeed = 25;
 	private int playerAction = IDLE;
-	private float speedX = 1.0f;
-	private float speedY = 1.27f;
-	private static float scale = ENTITYSCALE;
+	private float offsetX = 50 * ROOMSCALE, offsetY = -1 * 106 * ROOMSCALE;
 	public boolean moving = false, jumping = false;
+	private boolean teleFrom = false, teleTo = false;
 	private boolean left, up, right, down;
 
 	// intrinsic variables
 	private int energy;
 	private int xIndex = 1;
 	private int yIndex = 1;
-	
 	private int scoreMax;
 	private int currentLevel;
-	
+
 	// constructor
 	public Judol(int currentLevel, int energy) {
-		super(X_START, Y_START, (int)(100*scale), (int)(100*scale));
+		super(X_START_ROOM, Y_START, (int) (100 * ROOMSCALE), (int) (100 * ROOMSCALE));
 		this.energy = energy;
+
+		this.x = (int) (getPostXJ() + offsetX);
+		this.y = (int) (getPostYJ() + offsetY);
 		this.scoreMax = 0;
 		this.currentLevel = currentLevel;
 		loadAnimations();
@@ -47,50 +47,56 @@ public class Judol extends Entity {
 	}
 
 	private void updatePos() {
-		moving = false;
-		jumping = false;
-		if (left && !right && xIndex > 1 && getPostXJ() > X_START + (xIndex - 2) * HORIZONTALDISTANCE) {
-			MoveJudol(-speedX, 0);
-			if (yIndex == 1 && up != true) moving = true;
-			else jumping = true;
-			if (getPostXJ() <= X_START + (xIndex - 2) * HORIZONTALDISTANCE) {
-				xIndex--;
-				setLeft(false);
-				System.out.printf("SAMPE DI %d %d \n", xIndex, yIndex);
-				System.out.printf("SAMPE DI %d %d \n", getPostXJ(), getPostYJ());
+		if (up && !down) {
+			if (aniIndex < 5) {
+				teleFrom = true;
+			} else if (aniIndex >= 5) {
+				if (teleFrom) {
+					yIndex++;
+					MoveJudol(0, -(VERTICALDISTANCE));
+					teleFrom = false;
+				}
+				teleTo = true;
 			}
 		}
-		if (right && !left && getPostXJ() < X_START + (xIndex) * HORIZONTALDISTANCE) {
-			MoveJudol(speedX, 0);
-			if ((yIndex == 1 && up != true) || (jumping == true && yIndex != 1)) moving = true;
-			else jumping = true;
-			if (getPostXJ() >= X_START + (xIndex) * HORIZONTALDISTANCE) {
-				xIndex++;
-				setRight(false);
-				System.out.printf("SAMPE DI %d %d \n", xIndex, yIndex);
-				System.out.printf("SAMPE DI %d %d \n", getPostXJ(), getPostYJ());
+		if (down && !up) {
+			if (aniIndex < 5) {
+				teleFrom = true;
+			} else if (aniIndex >= 5) {
+				if (teleFrom) {
+					yIndex--;
+					MoveJudol(0, (VERTICALDISTANCE));
+					teleFrom = false;
+				}
+				teleTo = true;
 			}
 		}
-		if (up && !down && getPostYJ() > Y_START - (yIndex) * VERTICALDISTANCE) {
-			MoveJudol(0, -speedY);
-			jumping = true;
-			if (getPostYJ() <= Y_START - ((yIndex) * VERTICALDISTANCE)) {
-				System.out.printf("SAMPE DI %d %d \n", xIndex, yIndex);
-				yIndex++;
-				setUp(false);
+		if (left && !right) {
+			if (aniIndex < 5) {
+				teleFrom = true;
+			} else if (aniIndex >= 5) {
+				if (teleFrom) {
+					xIndex--;
+					MoveJudol(-(HORIZONTALDISTANCE), 0);
+					teleFrom = false;
+				}
+				teleTo = true;
 			}
 		}
-		if (down && !up && getPostYJ() < Y_START - (yIndex-2) * VERTICALDISTANCE) {
-			MoveJudol(0, speedY);
-			jumping = true;
-			if (getPostYJ() >= Y_START - (yIndex-2) * VERTICALDISTANCE) {
-				System.out.printf("SAMPE DI %d %d \n", xIndex, yIndex);
-				yIndex--;
-				setDown(false);
+		if (right && !left) {
+			if (aniIndex < 5) {
+				teleFrom = true;
+			} else if (aniIndex >= 5) {
+				if (teleFrom) {
+					xIndex++;
+					MoveJudol((HORIZONTALDISTANCE), 0);
+					teleFrom = false;
+				}
+				teleTo = true;
 			}
 		}
 	}
-	
+
 	public int getxIndex() {
 		return xIndex;
 	}
@@ -111,8 +117,8 @@ public class Judol extends Entity {
 		int startAni = playerAction;
 		if (moving)
 			playerAction = RUNNING;
-		else if (jumping)
-			playerAction = JUMP;
+		else if (teleFrom || teleTo)
+			playerAction = TELEPORTING;
 		else
 			playerAction = IDLE;
 		if (startAni != playerAction)
@@ -120,10 +126,16 @@ public class Judol extends Entity {
 	}
 
 	public void render(Graphics g) {
-		g.drawImage(animations[playerAction][aniIndex], getPostXJ()-20, getPostYJ()-85, width, height, null);
-		g.setFont(g.getFont().deriveFont(40.0f));
+		if (teleFrom || teleTo) {
+			g.drawImage(animations[playerAction][aniIndex], (int) (getPostXJ()), (int) (getPostYJ() - (30 * ROOMSCALE)),
+					(int) (98 * ROOMSCALE), (int) (150 * ROOMSCALE), null);
+		} else {
+			g.drawImage(animations[playerAction][aniIndex], getPostXJ(), getPostYJ(), width, height, null);
+		}
+		g.setFont(g.getFont().deriveFont(50.0f * ROOMSCALE));
 		g.setColor(Color.BLUE);
-		g.drawString(Integer.toString(GetEnergy()), (int) (getPostXJ() + width / 2), getPostYJ() - 85);
+		g.drawString(Integer.toString(GetEnergy()), (int) (getPostXJ() + width / 2),
+				getPostYJ() - (int) (height * ROOMSCALE / 3));
 	}
 
 	private void updateAniTick() {
@@ -133,6 +145,13 @@ public class Judol extends Entity {
 			aniIndex++;
 			if (aniIndex >= GetSpriteAmount(playerAction)) {
 				aniIndex = 0;
+			}
+			if (aniIndex == 9 && playerAction == TELEPORTING) {
+				teleTo = false;
+				teleFrom = false;
+				resetDirection();
+				playerAction = IDLE;
+				resetAnimation();
 			}
 		}
 	}
@@ -148,26 +167,27 @@ public class Judol extends Entity {
 
 	private void loadAnimations() {
 		BufferedImage img = ImportExport.GetImage(ImportExport.JUDOL);
-		animations = new BufferedImage[3][8];
-		for (int i = 0; i < animations.length; i++) {
-			for (int j = 0; j < animations[i].length; j++) {
-				if (i == 0) {
-					animations[0][0] = img.getSubimage(100, 131, 100, 100);
-					animations[0][1] = img.getSubimage(370, 131, 100, 100);
-					animations[0][2] = img.getSubimage(639, 131, 100, 100);
-					animations[0][3] = img.getSubimage(895, 131, 100, 100);
-					animations[0][4] = img.getSubimage(1151, 131, 100, 100);
-					animations[0][5] = img.getSubimage(1406, 131, 100, 100);
-					animations[0][6] = img.getSubimage(1663, 131, 100, 100);
-					animations[0][7] = img.getSubimage(1923, 131, 100, 100);
-				}
-				if (i == 1) {
-					animations[1][j] = img.getSubimage(121 + 256 * j, 380, 100, 100);
-				}
-				if (i == 2) {
-					animations[2][j] = img.getSubimage(128 + 256 * j, 648, 100, 100);
-				}
-			}
+		animations = new BufferedImage[4][10];
+		animations[0][0] = img.getSubimage(100, 131, 100, 100);
+		animations[0][1] = img.getSubimage(370, 131, 100, 100);
+		animations[0][2] = img.getSubimage(639, 131, 100, 100);
+		animations[0][3] = img.getSubimage(895, 131, 100, 100);
+		animations[0][4] = img.getSubimage(1151, 131, 100, 100);
+		animations[0][5] = img.getSubimage(1406, 131, 100, 100);
+		animations[0][6] = img.getSubimage(1663, 131, 100, 100);
+		animations[0][7] = img.getSubimage(1923, 131, 100, 100);
+		animations[1][0] = img.getSubimage(108, 1088, 98, 150);
+		animations[1][1] = img.getSubimage(363, 1088, 98, 150);
+		animations[1][2] = img.getSubimage(620, 1088, 98, 150);
+		animations[1][3] = img.getSubimage(876, 1088, 98, 150);
+		animations[1][4] = img.getSubimage(1101, 1088, 98, 150);
+		animations[1][5] = img.getSubimage(1278, 1088, 98, 150);
+		animations[1][6] = img.getSubimage(366, 1358, 98, 150);
+		animations[1][7] = img.getSubimage(622, 1358, 98, 150);
+		animations[1][8] = img.getSubimage(878, 1358, 98, 150);
+		animations[1][9] = img.getSubimage(1117, 1358, 98, 150);
+		for (int j = 0; j < animations[2].length; j++) {
+			animations[2][j] = img.getSubimage(128 + 256 * j, 648, 100, 100);
 		}
 	}
 
@@ -196,6 +216,7 @@ public class Judol extends Entity {
 	public void MoveJudol(float newX, float newY) {
 		this.x += newX;
 		this.y += newY;
+		System.out.println("MOVED JUDOL");
 	}
 
 	public int getPostXJ() {
@@ -223,7 +244,7 @@ public class Judol extends Entity {
 	}
 
 	public void setUp(boolean b) {
-		up = b;		
+		up = b;
 		System.out.println(left + " " + right + " " + up + " " + down);
 	}
 
@@ -244,18 +265,15 @@ public class Judol extends Entity {
 		System.out.println(left + " " + right + " " + up + " " + down);
 	}
 
-	public boolean isMoving() {
-		return moving;
-	}
-	public boolean isJumping() {
-		return jumping;
+	public boolean isTeleporting() {
+		return teleTo || teleFrom;
 	}
 
 	public void resetPosition() {
 		this.xIndex = 1;
 		this.yIndex = 1;
-		this.x = X_START;
-		this.y = Y_START;
+		this.x = X_START_ROOM + offsetX;
+		this.y = Y_START + offsetY;
 		this.energy = 5;
 	}
 

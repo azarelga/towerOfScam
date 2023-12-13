@@ -13,11 +13,9 @@ public class LevelManager {
 
     public LevelManager(Game game) {
         this.game = game;
-        loadLevel();
     }
     
     public void loadLevel() {
-        currentLevel = new Level(Gamestate.level);
         currentLevel = ImportExport.buildLevels(Gamestate.level);
     }
 

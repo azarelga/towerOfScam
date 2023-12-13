@@ -13,7 +13,7 @@ public class Gedung {
 
     public Gedung(Ruangan[] Ruangan) {
         this.Ruangan = Ruangan;
-        TotalRoom = Ruangan.length;
+        this.TotalRoom = Ruangan.length;
     }
 
     public void resetState() {
@@ -24,7 +24,7 @@ public class Gedung {
     
     public int countEmpty() {
         for (Ruangan ruangan : Ruangan) {
-            if (!ruangan.getIsEmpty()) {
+            if (ruangan.getIsEmpty()) {
                 emptyCounter++;
             }
         }

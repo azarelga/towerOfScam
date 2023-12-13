@@ -1,10 +1,10 @@
 package atribut;
 
 import static utilities.Constants.GameConstants.HORIZONTALDISTANCE;
+import static utilities.Constants.GameConstants.ROOMSCALE;
 import static utilities.Constants.GameConstants.VERTICALDISTANCE;
 import static utilities.Constants.GameConstants.X_START_ROOM;
 import static utilities.Constants.GameConstants.Y_START;
-import static utilities.Constants.PlayerConstants.ENTITYSCALE;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -35,7 +35,7 @@ public class GameDev extends Ruangan {
 		loadAnimations();
 		this.type = GAMEDEV;
 		this.x = (int) ((this.xPos - 1) * HORIZONTALDISTANCE) + X_START_ROOM + roomWidth / 2;
-		this.y = (int) (Y_START - ((this.yPos - 1) * VERTICALDISTANCE) - gdHeight);
+		this.y = (int) (Y_START - ((this.yPos - 1) * VERTICALDISTANCE) - (gdHeight+20) * ROOMSCALE);
 		this.health = health;
 	}
 
@@ -44,11 +44,11 @@ public class GameDev extends Ruangan {
 		super.render(g);
 		if (isActive == 1) {
 			g.drawImage(animations[playerAction][aniIndex], x, y,
-					(int) (animations[playerAction][aniIndex].getWidth() * ENTITYSCALE),
-					(int) (animations[playerAction][aniIndex].getHeight() * ENTITYSCALE), null);
-			g.setFont(g.getFont().deriveFont(40.0f));
+					(int) (animations[playerAction][aniIndex].getWidth() * ROOMSCALE),
+					(int) (animations[playerAction][aniIndex].getHeight() * ROOMSCALE), null);
+			g.setFont(g.getFont().deriveFont(50.0f * ROOMSCALE));
 			g.setColor(Color.RED);
-			if (playerAction == 0) g.drawString(Integer.toString(getEnergy()), (int) (x + gdWidth / 2), y - 30);
+			if (playerAction == 0) g.drawString(Integer.toString(getEnergy()), (int) (x + gdWidth / 2), (int)(y - gdHeight *ROOMSCALE / 3));
 		}
 	}
 

@@ -4,21 +4,59 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Level{
+import characters.Judol;
+
+public class Level {
     // private float scale;
+    private Judol judol;
     private List<Gedung> Gedungs;
     private int LevelIndex;
     private boolean isBeaten;
     private int ScoreByUser;
+    private boolean win = false, lose = false;
     public int jumlahRuangan = 0;
     private int emptyCounter;
 
-    public Level(int LevelIndex) {
+    public Level(int LevelIndex, int startEnergy) {
         this.LevelIndex = LevelIndex;
         this.Gedungs = new ArrayList<Gedung>();
+        this.judol = new Judol(LevelIndex, startEnergy);
         this.isBeaten = false;
         this.ScoreByUser = 0;
         this.emptyCounter = 0;
+    }
+
+    private void checkJudolAndRoom() {
+        int judolX = judol.getxIndex();
+        int judolY = judol.getyIndex();
+        if (getRuangan(judolX, judolY).getIsEmpty() == false) {
+            if (getRuangan(judolX, judolY).getType() == Ruangan.GAMEDEV) {
+                if (judol.GetEnergy() > getRuangan(judolX, judolY).getEnergy()) {
+                    judol.ReceiveEnergy(getRuangan(judolX, judolY).getEnergy());
+                    getRuangan(judolX, judolY).setIsEmpty(true);
+                } else {
+                    // setLose();
+                }
+            } else if (getRuangan(judolX, judolY).getType() == Ruangan.ITEM) {
+                judol.CastItem(getRuangan(judolX, judolY));
+                getRuangan(judolX, judolY).setIsEmpty(true);
+            }
+        }
+        if (getRuangan(judolX, judolY).getFinalRoom() == true) {
+            if (isAllEmpty()) setWin();
+        }
+
+    }
+
+    // private void setLose() {
+
+    // }
+
+
+    public boolean setWin() {
+        this.isBeaten = true;
+        this.ScoreByUser = judol.GetEnergy();
+        return true;
     }
 
     public List<Gedung> getGedung() {
@@ -33,7 +71,6 @@ public class Level{
             gedung.resetState();
         }
     }
-
 
     public void addGedung(Gedung gedung) {
         jumlahRuangan = jumlahRuangan + gedung.getTotalRoom();
@@ -80,8 +117,12 @@ public class Level{
     }
 
     public void update() {
-        for (Gedung gedung : Gedungs) {
-            gedung.update();
+        if (!win || !lose) {
+            for (Gedung gedung : Gedungs) {
+                gedung.update();
+            }
+            judol.update();
+            checkJudolAndRoom();
         }
     }
 
@@ -90,21 +131,30 @@ public class Level{
     }
 
     public boolean cekRuangan(int x, int y) {
-        if (Gedungs.size() >= x) {
-            if (Gedungs.get(x - 1).getTotalRoom() >= y) {
-                return true;
+        if (x != 0 && y != 0) {
+            if (Gedungs.size() >= x) {
+                if (Gedungs.get(x - 1).getTotalRoom() >= y) {
+                    return true;
+                } else {
+                    return false;
+                }
             } else {
                 return false;
             }
-        } else {
-            return false;
         }
+        return false;
+    }
+
+    public Judol getJudol() {
+        return judol;
     }
 
     public void render(Graphics g) {
+        
         for (Gedung gedung : Gedungs) {
             gedung.render(g);
         }
+        judol.render(g);
     }
 
 }

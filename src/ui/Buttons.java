@@ -6,12 +6,11 @@ import java.awt.image.BufferedImage;
 
 import static utilities.Constants.Buttons.*;
 import gamestates.Gamestate;
-import main.Game;
 import utilities.ImportExport;
 
-public class MenuButtons {
-    private  int B_WIDTH;
-    private  int B_HEIGHT;
+public class Buttons {
+	private int B_WIDTH;
+	private int B_HEIGHT;
 	private int xPos, yPos;
 	private String button;
 	private int xOffsetCenter;
@@ -20,7 +19,7 @@ public class MenuButtons {
 	private boolean mouseOver, mousePressed;
 	private Rectangle bounds;
 
-	public MenuButtons(int xPos, int yPos, String button, Gamestate state) {
+	public Buttons(int xPos, int yPos, String button, Gamestate state) {
 		this.xPos = xPos;
 		this.yPos = yPos;
 		this.button = button;
@@ -38,9 +37,15 @@ public class MenuButtons {
 
 	private void loadImgs() {
 		imgs = ImportExport.GetImage(button);
-		B_WIDTH=(int)(imgs.getWidth()*WIDEBUTTONSCALE);
-		B_HEIGHT=(int) (imgs.getHeight()*WIDEBUTTONSCALE);
+		if (!button.equals(ImportExport.PAUSE)) {
+			B_WIDTH = (int) (imgs.getWidth() * WIDEBUTTONSCALE);
+			B_HEIGHT = (int) (imgs.getHeight() * WIDEBUTTONSCALE);
 		xOffsetCenter = B_WIDTH / 2;
+		} else {
+			B_WIDTH = (int) (imgs.getWidth());
+			B_HEIGHT = (int) (imgs.getHeight());
+		xOffsetCenter = 0;
+		}
 	}
 
 	public void draw(Graphics g) {
@@ -69,8 +74,9 @@ public class MenuButtons {
 	public Rectangle getBounds() {
 		return bounds;
 	}
- 
+
 	public void applyGamestate() {
+		Gamestate.control = 1;
 		Gamestate.state = state;
 	}
 
@@ -78,6 +84,7 @@ public class MenuButtons {
 		mouseOver = false;
 		mousePressed = false;
 	}
+
 	public Gamestate getState() {
 		return state;
 	}

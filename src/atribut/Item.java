@@ -1,6 +1,7 @@
 package atribut;
 
 import static utilities.Constants.GameConstants.HORIZONTALDISTANCE;
+import static utilities.Constants.GameConstants.ROOMSCALE;
 import static utilities.Constants.GameConstants.VERTICALDISTANCE;
 import static utilities.Constants.GameConstants.X_START_ROOM;
 import static utilities.Constants.GameConstants.Y_START;
@@ -18,6 +19,7 @@ public class Item extends Ruangan{
 	private char operasi;
 	private BufferedImage img;
 	private int x, y;
+	private float offsetY = 20*ROOMSCALE;
 	private int itemHeight, itemWidth;
 	private int isActive = 1;
 	private Color color;
@@ -31,7 +33,7 @@ public class Item extends Ruangan{
 		loadItem();
 		this.type = ITEM;
 		this.x = (int) ((this.xPos - 1) * HORIZONTALDISTANCE) + X_START_ROOM + roomWidth / 2;
-		this.y = (int) (Y_START - ((this.yPos - 1) * VERTICALDISTANCE)-2*itemHeight);
+		this.y = (int) (Y_START - ((this.yPos - 1) * VERTICALDISTANCE)-(itemHeight+offsetY));
 	}
 
 	public void update() {
@@ -50,18 +52,18 @@ public class Item extends Ruangan{
 			img = ImportExport.GetImage(ImportExport.DEBUFFS[rand.nextInt(2)]);
 			color = Color.RED;
 		}
-		itemHeight = img.getHeight();
-		itemWidth = img.getWidth();
+		itemHeight =(int) (img.getHeight());
+		itemWidth = (int)(img.getWidth());
 	}
 
 	public void render(Graphics g) {
 		super.render(g);
 		if (isActive == 1) {
-			g.drawImage(img, x, y, null);
-			g.setFont(g.getFont().deriveFont(40.0f));
+			g.drawImage(img, x, y, itemWidth, itemHeight, null);
+			g.setFont(g.getFont().deriveFont(50.0f * ROOMSCALE));
 			g.setColor(color);
 			String s = getOperasi() + Integer.toString(getEnergy());
-			g.drawString(s, (int) (x + itemWidth / 2), y - 30);
+			g.drawString(s, (int) (x + itemWidth / 2), y - (int)(itemHeight/(4*ROOMSCALE)));
 		}
 	}
 

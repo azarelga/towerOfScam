@@ -12,7 +12,6 @@ import utilities.Constants.GameConstants;
 public class Ruangan {
     public static final int RUANGAN = 0,GAMEDEV = 1, ITEM = 2;
     protected int type = RUANGAN;
-    private final float roomScale = 0.8f;
     public static int roomWidth;
     private static int roomHeight;
     private BufferedImage img;
@@ -31,10 +30,10 @@ public class Ruangan {
 
     public void loadImg() {
         this.img = ImportExport.GetImage(ImportExport.RUANGAN[0]);
-        roomWidth = (int) (img.getWidth() * roomScale);
-        roomHeight = (int) (img.getHeight() * roomScale);
+        roomWidth = (int) (img.getWidth() * ROOMSCALE);
+        roomHeight = (int) (img.getHeight() * ROOMSCALE);
         GameConstants.resetConstants();
-        HORIZONTALDISTANCE = (HORIZONTALDISTANCE * roomScale);
+        HORIZONTALDISTANCE = (HORIZONTALDISTANCE * ROOMSCALE);
         VERTICALDISTANCE = roomHeight;
     }
 

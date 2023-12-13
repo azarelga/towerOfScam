@@ -7,11 +7,11 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 import main.Game;
-import ui.MenuButtons;
+import ui.Buttons;
 import utilities.ImportExport;
 
 public class Menu extends State implements StateMethods {
-    private MenuButtons[] buttons = new MenuButtons[3];
+    private Buttons[] buttons = new Buttons[3];
     private BufferedImage background, logo;
     private double logoScale = 0.18;
 
@@ -29,9 +29,9 @@ public class Menu extends State implements StateMethods {
     }
 
     public void loadButtons() {
-        buttons[0] = new MenuButtons((int) Game.GAME_WIDTH / 2, 400, ImportExport.PLAY, Gamestate.PLAYING);
-        buttons[1] = new MenuButtons((int) Game.GAME_WIDTH / 2, 480, ImportExport.LEVEL, Gamestate.LEVELSELECT);
-        buttons[2] = new MenuButtons((int) Game.GAME_WIDTH / 2, 560, ImportExport.SETTINGS, Gamestate.SETTINGS);
+        buttons[0] = new Buttons((int) Game.GAME_WIDTH / 2, 400, ImportExport.PLAY, Gamestate.PLAYING);
+        buttons[1] = new Buttons((int) Game.GAME_WIDTH / 2, 480, ImportExport.LEVEL, Gamestate.LEVELSELECT);
+        buttons[2] = new Buttons((int) Game.GAME_WIDTH / 2, 560, ImportExport.SETTINGS, Gamestate.SETTINGS);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class Menu extends State implements StateMethods {
         g.drawImage(background, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
         g.drawImage(logo, (int) (Game.GAME_WIDTH / 2 - logo.getWidth() * logoScale / 2), 60,
                 (int) (logo.getWidth() * logoScale), (int) (logo.getHeight() * logoScale), null);
-        for (MenuButtons mb : buttons)
+        for (Buttons mb : buttons)
             mb.draw(g);
     }
     
@@ -71,7 +71,7 @@ public class Menu extends State implements StateMethods {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        for (MenuButtons mb : buttons) {
+        for (Buttons mb : buttons) {
             if (isIn(e, mb)) {
                 System.out.println("Play Clicked");
                 mb.setMousePressed(true);
@@ -79,14 +79,14 @@ public class Menu extends State implements StateMethods {
         }
     }
 
-    private boolean isIn(MouseEvent e, MenuButtons mb) {
+    private boolean isIn(MouseEvent e, Buttons mb) {
         return e.getX() >= mb.getBounds().x && e.getX() <= mb.getBounds().x + mb.getBounds().width
                 && e.getY() >= mb.getBounds().y && e.getY() <= mb.getBounds().y + mb.getBounds().height;
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        for (MenuButtons mb : buttons) {
+        for (Buttons mb : buttons) {
             if (isIn(e, mb)) {
                 if (mb.isMousePressed()) {
                     mb.applyGamestate();
@@ -98,7 +98,7 @@ public class Menu extends State implements StateMethods {
     }
 
     private void resetButtons() {
-        for (MenuButtons mb : buttons)
+        for (Buttons mb : buttons)
             mb.resetBools();
     }
 
