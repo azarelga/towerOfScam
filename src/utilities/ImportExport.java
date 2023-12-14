@@ -18,27 +18,27 @@ public class ImportExport {
     public static final String JUDOL = "Judol.png";
     public static final String BACKGROUND = "Background.png";
     public static final String BACKGROUNDMENU = "Background_2.png";
-    public static final String LOGOMENU = "logo_menu.png";
+    public static final String LOGOMENU = "Logo_menu.png";
     public static final String[] RUANGAN = { "Ruangan_1.png", "Ruangan_2.png" };
     public static final String[] GAMEDEVS = { "GameDev_1.png", "GameDev_2.png", "GameDev_3.png" };
     public static final String[] BUFFS = { "buff1.png", "buff2.png", "buff3.png" };
-    public static final String[] DEBUFFS = { "debuff1.png", "debuff2.png" };
+    public static final String[] DEBUFFS = { "Debuff1.png", "debuff2.png" };
     public static final String ROOFTOP = "Ruangan_3.png";
-    public static final String LOGO = "Logo.png";
-    public static final String RESUME = "resume.png";
-    public static final String RESTART = "restart.png";
-    public static final String PLAY = "play_button.png";
-    public static final String LEVEL = "level_button.png";
-    public static final String SETTINGS = "settings_button.png";
-    public static final String PAUSE = "pause_click.png";
-    public static final String HOME = "home_button.png";
+    public static final String LOGO = "logo.png";
+    public static final String RESUME = "Resume.png";
+    public static final String RESTART = "Restart.png";
+    public static final String PLAY = "Play_button.png";
+    public static final String LEVEL = "Level_Button.png";
+    public static final String SETTINGS = "settings_Button.png";
+    public static final String PAUSE = "Pause_click.png";
+    public static final String HOME = "Home_button.png";
     public static final String LEVELANGKA = "lvlangka.png";
-    public static final String SOUND = "sound.png";
-    public static final String MUTE = "mute.png";
-    public static final String BGM = "bgm.png";
+    public static final String SOUND = "Sound.png";
+    public static final String MUTE = "Mute.png";
+    public static final String BGM = "BGM.png";
     public static final String CLEAR = "Level_Cleared.png";
-    public static final String SFX = "sfx.png";
-    public static final String NEXT = "next_button.png";
+    public static final String SFX = "SFX.png";
+    public static final String NEXT = "Next_button.png";
 
     public static BufferedImage GetImage(String filename) {
         BufferedImage img = null;
@@ -285,7 +285,7 @@ public class ImportExport {
             	level.addGedung(new Gedung (new Ruangan [] {
             			new GameDev(2,1,9),
             			new GameDev(2,2,5),
-            			new GameDev(2,2,16)
+            			new GameDev(2,3,16)
             	}));
             	
             	level.addGedung(new Gedung (new Ruangan [] {
