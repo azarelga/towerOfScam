@@ -150,15 +150,194 @@ public class ImportExport {
                         new Ruangan(5, 1, true)
                 }));
             	break;
+            case 4:
+            	// level 5
+            	ROOMSCALE = 0.7f;
+            	level = new Level (i, 10);
+            	System.out.println("Level 5 Entered");
+            	level.addGedung(new Gedung(new Ruangan [] {
+            			new Ruangan (1, 1, false)
+            	}));
             	
-            // level 3
-            // level 4
-            // level 5
-            // level 6
-            // level 7
-            // level 8
-            // level 9
-            // level 10
+            	level.addGedung(new Gedung (new Ruangan [] {
+            			new GameDev(2,1,9),
+            			new Item(2,2,5,'+'),
+            			new GameDev(2,3,13),
+            			new Item (2,4,15,'-')
+            			
+            	}));
+            	
+            	level.addGedung(new Gedung (new Ruangan [] {
+            			new GameDev (3,1,25),
+            			new Item (3,2,2,'/'),
+            			new GameDev(3,3,30),
+            			new GameDev(3,4,12)
+            	}));
+            	
+            	level.addGedung(new Gedung(new Ruangan[] {
+            			new GameDev(4,1,79)
+            	}));
+            	level.addGedung(new Gedung(new Ruangan[] {
+                        new Ruangan(5, 1, true)
+                }));
+            	break;
+            case 5:
+            	// level 6
+            	ROOMSCALE = 0.65f;
+            	level = new Level (i, 10);
+            	System.out.println("Level 6 Entered");
+            	level.addGedung(new Gedung(new Ruangan [] {
+            			new Ruangan (1, 1, false)
+            	}));
+            	
+            	level.addGedung(new Gedung (new Ruangan [] {
+            			new Ruangan (2, 1, false),
+            			new Item(2,2,20,'+'),
+            			new GameDev(2,3,24),
+            			new Item (2,4,3,'*'),
+            			new Item (2,5,50,'-')	
+            	}));
+            	
+            	level.addGedung(new Gedung (new Ruangan [] {
+            			new GameDev (3,1,16),
+            			new Item (3,2,5,'*'),
+            			new Item (3,3,2,'/'),
+            			new GameDev(3,4,5),
+            			new GameDev(3,5,32)
+            	}));
+            	
+            	level.addGedung(new Gedung(new Ruangan[] {
+            			new GameDev(4,1,499)
+            	}));
+            	level.addGedung(new Gedung(new Ruangan[] {
+                        new Ruangan(5, 1, true)
+                }));
+            	break;
+            case 6:
+            	// level 7
+            	ROOMSCALE = 0.65f;
+            	level = new Level (i, 10);
+            	System.out.println("Level 7 Entered");
+            	level.addGedung(new Gedung(new Ruangan [] {
+            			new Ruangan (1, 1, false)
+            	}));
+            	
+            	level.addGedung(new Gedung (new Ruangan [] {
+            			new GameDev(2,1,7),
+            			new GameDev(2,2,15),
+            			new GameDev(2,3,24),
+            			new Item (2,4,2,'/'),
+            			new Item (2,5,50,'+')	
+            	}));
+            	
+            	level.addGedung(new Gedung (new Ruangan [] {
+            			new GameDev (3,1,380),
+            			new GameDev(3,2,102),
+            			new Item (3,3,2,'/'),
+            			new GameDev(3,4,183),
+            			new GameDev(3,5,52)
+            	}));
+            	
+            	level.addGedung(new Gedung(new Ruangan[] {
+            			new GameDev(4,1,368)
+            	}));
+            	level.addGedung(new Gedung(new Ruangan[] {
+                        new Ruangan(5, 1, true)
+                }));
+            	break;
+            case 7:
+            	// level 8
+            	ROOMSCALE = 0.68f;
+            	level = new Level (i, 20);
+            	System.out.println("Level 8 Entered");
+            	level.addGedung(new Gedung(new Ruangan [] {
+            			new Ruangan (1, 1, false)
+            	}));
+            	
+            	level.addGedung(new Gedung (new Ruangan [] {
+            			new GameDev(2,1,18),
+            			new GameDev(2,2,32)	
+            	}));
+            	
+            	level.addGedung(new Gedung (new Ruangan [] {
+            			new GameDev (3,1,320),
+            			new Item (3,2,5,'*'),
+            			new Item(3,3,3,'/')
+            	}));
+            	
+            	level.addGedung(new Gedung(new Ruangan[] {
+            			new GameDev(4,1,217),
+            			new GameDev(4,2,400)
+            	}));
+            	level.addGedung(new Gedung(new Ruangan[] {
+                        new Ruangan(5, 1, true)
+                }));
+            	break;
+            case 8:
+            	// level 9
+            	ROOMSCALE = 0.68f;
+            	level = new Level (i, 10);
+            	System.out.println("Level 9 Entered");
+            	level.addGedung(new Gedung(new Ruangan [] {
+            			new Ruangan (1, 1, false)
+            	}));
+            	
+            	level.addGedung(new Gedung (new Ruangan [] {
+            			new GameDev(2,1,9),
+            			new GameDev(2,2,5),
+            			new GameDev(2,2,16)
+            	}));
+            	
+            	level.addGedung(new Gedung (new Ruangan [] {
+            			new GameDev (3,1,22),
+            			new GameDev (3,2,19),
+            			new Item(3,3,2,'/')
+            	}));
+            	
+            	level.addGedung(new Gedung(new Ruangan[] {
+            			new GameDev(4,1,50),
+            			new Item (4,2,2,'*'),
+            			new GameDev(4,3,178)
+            	}));
+            	level.addGedung(new Gedung(new Ruangan[] {
+                        new Ruangan(5, 1, true)
+                }));
+            	break;
+            case 9:
+            	// level 10
+            	ROOMSCALE = 0.6f;
+            	level = new Level (i, 10);
+            	System.out.println("Level 10 Entered");
+            	level.addGedung(new Gedung(new Ruangan [] {
+            			new Ruangan (1, 1, false)
+            	}));
+            	
+            	level.addGedung(new Gedung (new Ruangan [] {
+            			new Item(2,1,6,'-'),
+            			new Item(2,2,2,'/'),
+            			new Item(2,3,30,'+')
+            	}));
+            	
+            	level.addGedung(new Gedung (new Ruangan [] {
+            			new GameDev(3,1,13),
+            			new GameDev(3,2,75),
+            			new GameDev(3,3,31)
+            	}));
+            	
+            	level.addGedung(new Gedung(new Ruangan[] {
+            			new Item (4,1,3,'*'),
+            			new Item (4,2,30,'-'),
+            			new Item (4,3,2,'/')
+            	}));
+            	
+            	level.addGedung(new Gedung (new Ruangan [] {
+            			new GameDev(5,1,200)
+            	}));
+            	
+            	level.addGedung(new Gedung(new Ruangan[] {
+                        new Ruangan(6, 1, true)
+                }));
+            	break;
         }
         return level;
     }
