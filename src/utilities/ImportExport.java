@@ -100,27 +100,57 @@ public class ImportExport {
                 }));
                 break;
             case 2:
+            	//level 3
                 ROOMSCALE = 0.7f;
-                level = new Level(i, 4);
-                System.out.println("Level 2 Entered");
+                level = new Level(i, 10);
+                System.out.println("Level 3 Entered");
                 level.addGedung(new Gedung(new Ruangan[] {
                         new Ruangan(1, 1, false)
                 }));
                 level.addGedung(new Gedung(new Ruangan[] {
-                        new Ruangan(2, 1, false),
-                        new Item(2, 2, 2, '*'),
-                        new GameDev(2, 3, 6),
+                        new Item(2, 1, 2, '/'),
+                        new Item (2, 2, 2, '-'),
                 }));
                 level.addGedung(new Gedung(new Ruangan[] {
-                        new Ruangan(3, 1, false),
-                        new GameDev(3, 2, 12),
-                        new GameDev(3, 3, 24)
+                		new Item(3, 1, 10, '+'),
+                        new Item (3, 2, 2, '*'),
+                        new GameDev (3, 3, 10)
                 }));
                 level.addGedung(new Gedung(new Ruangan[] {
                         new Ruangan(4, 1, true)
                 }));
             default:
                 break;
+            case 3:
+            	// level 4
+            	ROOMSCALE = 0.7f;
+            	level = new Level (i, 10);
+            	System.out.println("Level 4 Entered");
+            	level.addGedung(new Gedung(new Ruangan [] {
+            			new Ruangan (1, 1, false)
+            	}));
+            	
+            	level.addGedung(new Gedung (new Ruangan [] {
+            			new Item(2,1,5,'*'),
+            			new GameDev(2,2,38),
+            			new Item (2,3,16,'-')
+            			
+            	}));
+            	
+            	level.addGedung(new Gedung (new Ruangan [] {
+            			new GameDev (3,1,81),
+            			new Item (3,2,2,'*'),
+            			new GameDev(3,3,56)
+            	}));
+            	
+            	level.addGedung(new Gedung(new Ruangan[] {
+            			new GameDev(4,1,200)
+            	}));
+            	level.addGedung(new Gedung(new Ruangan[] {
+                        new Ruangan(5, 1, true)
+                }));
+            	break;
+            	
             // level 3
             // level 4
             // level 5
