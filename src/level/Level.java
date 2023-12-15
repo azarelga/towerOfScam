@@ -26,6 +26,7 @@ public class Level {
     public Level(int LevelIndex, int startEnergy) {
         this.LevelIndex = LevelIndex;
         this.Gedungs = new ArrayList<Gedung>();
+        this.jumlahRuangan = 0;
         this.startEnergy = startEnergy;
         this.judol = new Judol(LevelIndex, startEnergy);
         this.isBeaten = false;
@@ -88,8 +89,10 @@ public class Level {
     public boolean isAllEmpty() {
         emptyCounter = 0;
         for (Gedung gedung : Gedungs) {
-            emptyCounter = emptyCounter + gedung.countEmpty();
+            emptyCounter += gedung.countEmpty();
         }
+        System.out.println(emptyCounter);
+        System.out.println(jumlahRuangan +"Harusnya");
         if (emptyCounter == jumlahRuangan) {
             return true;
         } else {

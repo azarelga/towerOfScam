@@ -14,9 +14,9 @@ public class HoverText {
         this.color = color;
     }
     
-    public void draw(Graphics g, int x, int y, int number) {
-        g.setFont(g.getFont().deriveFont(50.0f * ROOMSCALE));
+    public void draw(Graphics g, int x, int y, String number) {
+        g.setFont(g.getFont().deriveFont(45.0f * ROOMSCALE));
 		g.setColor(color);
-		g.drawString(Integer.toString(number), x - g.getFontMetrics().stringWidth(Integer.toString(number)), y);
+		g.drawString(number, x - g.getFontMetrics().stringWidth(number)/2, y);
     }
 }

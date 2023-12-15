@@ -26,28 +26,28 @@ public class LevelButtons {
     private int homeHeight;
 
 	public LevelButtons(int xPos, int yPos) {
-		this.xPos = xPos - xSpace;
+		this.xPos = xPos -(int)(xSpace+81*SCALE);
 		this.yPos = yPos- 110;
 		loadImgs();
 		initBounds();
 	}
 
 	private void initBounds() {
-        bounds = new Rectangle[11];
-        for (int i = 0; i < 10; i++) {
-            bounds[i] = new Rectangle((xPos + xSpace*(i%3)) - xOffsetCenter, (yPos + ySpace*(i/3)), B_WIDTH, B_HEIGHT);
+        bounds = new Rectangle[15];
+        for (int i = 0; i < 15; i++) {
+            bounds[i] = new Rectangle((xPos + xSpace*(i%4)) - xOffsetCenter, (yPos + ySpace*(i/4)), B_WIDTH, B_HEIGHT);
         }
-		bounds[10] = new Rectangle((int)(Game.GAME_WIDTH/2 - homeWidth/2), 550, homeWidth,homeHeight);
+		bounds[14] = new Rectangle((int)(Game.GAME_WIDTH/2 - homeWidth/2), 550, homeWidth,homeHeight);
 	}
 
 	private void loadImgs() {
 		BufferedImage img = ImportExport.GetImage(ImportExport.LEVELANGKA);
-        imgs = new BufferedImage[10];
-        for (int i = 0; i < 10; i++) {
-            if (i<3)imgs[i] = img.getSubimage((i * 128)+ 27, 55, 81, 81);
-            else if (i>=3 && i<6) imgs[i] = img.getSubimage(((i-3) * 128)+ 25, 160, 81, 81);
-            else if (i>=6 && i<9) imgs[i] = img.getSubimage(((i-6) * 128)+ 25, 265, 81, 81);
-            else imgs[i] = img.getSubimage(25, 370, 81, 81);
+        imgs = new BufferedImage[15];
+        for (int i = 0; i < 15; i++) {
+            if (i<4)imgs[i] = img.getSubimage((i * 250)+ 2, 0, 160, 160);
+            else if (i>=4 && i<8) imgs[i] = img.getSubimage(((i-4) * 250)+ 2, 200, 160, 160);
+            else if (i>=8 && i<12) imgs[i] = img.getSubimage(((i-8) * 250)+ 2, 400, 160, 160);
+            else imgs[i] = img.getSubimage((i-12)*250 + 128, 600, 160, 160);
         }
 		B_WIDTH=(int)(81*SCALE);
 		B_HEIGHT=(int)(81*SCALE);
@@ -58,9 +58,12 @@ public class LevelButtons {
 	}
 
 	public void draw(Graphics g) {
-        for (int i = 0; i < 10; i++) {
-            g.drawImage(imgs[i], (xPos + xSpace*(i%3)) - xOffsetCenter, (yPos + ySpace*(i/3)), B_WIDTH, B_HEIGHT, null);
+        for (int i = 0; i < 12; i++) {
+            g.drawImage(imgs[i], (xPos + xSpace*(i%4)) - xOffsetCenter, (yPos + ySpace*(i/4)), B_WIDTH, B_HEIGHT, null);
         }
+		for (int i = 12; i < 15; i++) {
+			g.drawImage(imgs[i], (xPos +(int)(60*SCALE)+ xSpace*(i%3)) - xOffsetCenter, (yPos + ySpace*(i/4)), B_WIDTH, B_HEIGHT, null);
+		}
 		g.drawImage(home,(int)(Game.GAME_WIDTH/2 - homeWidth/2), 550, homeWidth,homeHeight,null);
 	}
 
@@ -90,7 +93,7 @@ public class LevelButtons {
  
 	public void applyGamestate() {
 
-		if (levelState == 10) Gamestate.state = Gamestate.MENU;
+		if (levelState == 14) Gamestate.state = Gamestate.MENU;
 		else {
 			Gamestate.level = levelState;
 			Gamestate.state = Gamestate.PLAYING;

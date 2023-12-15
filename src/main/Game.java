@@ -2,6 +2,7 @@ package main;
 
 import java.awt.Graphics;
 
+import audio.AudioPlayer;
 import gamestates.Gamestate;
 import gamestates.LevelSelect;
 import gamestates.Menu;
@@ -16,6 +17,8 @@ public class Game implements Runnable {
 	private Settings settings;
 	private LevelSelect levelselect;
 	private Menu menu;
+	private AudioPlayer audioPlayer;
+
 	public final static float SCALE = 2f;
 	private final int FPS = 200;
 	private final int UPS_SET = 280;
@@ -74,6 +77,7 @@ public class Game implements Runnable {
 	}
 
 	private void initClasses() {
+		audioPlayer = new AudioPlayer();
 		menu = new Menu(this);
 		playing = new Playing(this);
 		levelselect = new LevelSelect(this);
@@ -144,5 +148,9 @@ public class Game implements Runnable {
 
 	public Graphics getGraphics() {
 		return null;
+	}
+
+	public AudioPlayer getAudioPlayer() {
+		return audioPlayer;
 	}
 }

@@ -134,7 +134,7 @@ public class Judol extends Entity {
 		} else {
 			g.drawImage(animations[playerAction][aniIndex], getPostXJ(), getPostYJ(), width, height, null);
 		}
-		hover.draw(g, getPostXJ() + width/2,(int) (getPostYJ()-30*ROOMSCALE), energy);
+		hover.draw(g, getPostXJ() + width/2,(int) (getPostYJ()-30*ROOMSCALE), Integer.toString(energy));
 	}
 
 	private void updateAniTick() {

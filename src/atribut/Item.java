@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import level.Ruangan;
+import ui.HoverText;
 import utilities.ImportExport;
 
 public class Item extends Ruangan{
@@ -19,10 +20,12 @@ public class Item extends Ruangan{
 	private char operasi;
 	private BufferedImage img;
 	private int x, y;
-	private float offsetY = 20*ROOMSCALE;
+	private float offsetY = 40*ROOMSCALE;
 	private int itemHeight, itemWidth;
 	private int isActive = 1;
+	private HoverText hover;
 	private Color color;
+	private String string;
 
 
 	public Item (int xPos, int yPos, int number, char operasi) {
@@ -34,6 +37,7 @@ public class Item extends Ruangan{
 		this.type = ITEM;
 		this.x = (int) ((this.xPos - 1) * HORIZONTALDISTANCE) + X_START_ROOM + roomWidth / 2;
 		this.y = (int) (Y_START - ((this.yPos - 1) * VERTICALDISTANCE)-(itemHeight+offsetY));
+		this.string = operasi+Integer.toString(number);
 	}
 
 	public void update() {
@@ -46,11 +50,11 @@ public class Item extends Ruangan{
 		Random rand = new Random();
 		if (operasi == '+' || operasi == '*'){
 			img = ImportExport.GetImage(ImportExport.BUFFS[rand.nextInt(3)]);
-			color = Color.GREEN;
+			this.hover = new HoverText(Color.GREEN);
 		}
 		if (operasi == '-' || operasi == '/'){
 			img = ImportExport.GetImage(ImportExport.DEBUFFS[rand.nextInt(2)]);
-			color = Color.RED;
+			this.hover = new HoverText(Color.RED);
 		}
 		itemHeight =(int) (img.getHeight());
 		itemWidth = (int)(img.getWidth());
@@ -60,10 +64,7 @@ public class Item extends Ruangan{
 		super.render(g);
 		if (isActive == 1) {
 			g.drawImage(img, x, y, itemWidth, itemHeight, null);
-			g.setFont(g.getFont().deriveFont(50.0f * ROOMSCALE));
-			g.setColor(color);
-			String s = getOperasi() + Integer.toString(getEnergy());
-			g.drawString(s, (int) (x + itemWidth / 2), y - (int)(itemHeight/(4*ROOMSCALE)));
+			hover.draw(g, x + itemWidth/2, y - (int)(30*ROOMSCALE), string);
 		}
 	}
 

@@ -5,7 +5,7 @@ import java.awt.Graphics;
 public class Gedung {
     private int TotalRoom;
     private Ruangan[] Ruangan;
-    private int emptyCounter = 0;
+    private int emptyCounterBegin = 0, emptyCounter=0;
 
     public Gedung(Ruangan[] Ruangan) {
         this.Ruangan = Ruangan;
@@ -15,6 +15,7 @@ public class Gedung {
                 emptyCounter++;
             }
         }
+        emptyCounterBegin = emptyCounter;
     }
 
     public int getTotalRoom() {
@@ -22,6 +23,7 @@ public class Gedung {
     }
 
     public void resetState() {
+        emptyCounter = emptyCounterBegin;
         for (Ruangan ruangan : Ruangan) {
             ruangan.resetState();
         }

@@ -39,12 +39,13 @@ public class ImportExport {
     public static final String CLEAR = "Level_Cleared.png";
     public static final String SFX = "SFX.png";
     public static final String NEXT = "Next_button.png";
-    public static final String LOSE = "Lose.png";
+    public static final String LOSE = "lose.png";
     public static final String LOADING = "Loading.png";
 
     public static BufferedImage GetImage(String filename) {
         BufferedImage img = null;
         InputStream is = ImportExport.class.getResourceAsStream("/" + filename);
+		System.out.println(filename);
         try {
             img = ImageIO.read(is);
         } catch (IOException e) {
@@ -340,6 +341,44 @@ public class ImportExport {
                         new Ruangan(6, 1, true)
                 }));
             	break;
+				case 10:
+					// level 11
+					ROOMSCALE = 0.65f;
+					level = new Level(i, 10);
+					System.out.println("Level 11 Entered");
+					level.addGedung(new Gedung(new Ruangan[] {
+							new Ruangan(1, 1, false)
+					}));
+					level.addGedung(new Gedung(new Ruangan[] {
+						new GameDev(2, 1, 9),
+            			new Item (2,2,8,'+'),
+						new GameDev(2, 3, 13),
+						new Ruangan(2,4,false),
+            			new Item (2,5,9,'-')
+					}));
+					level.addGedung(new Gedung(new Ruangan[] {
+						new Item(3,1,2,'/'),
+						new GameDev(3,2,7),
+						new GameDev(3,3,17),
+						new Item(3,4,23,'-'),
+						new GameDev(3,5,25)
+						
+					}));
+					level.addGedung(new Gedung(new Ruangan[] {
+						new Item(4,1,2,'*'),
+						new GameDev(4, 2, 71),
+						new GameDev(4,3,34)
+					}));
+					level.addGedung(new Gedung(new Ruangan[] {
+						new GameDev(5, 1, 287),
+						new Item(5,2,40,'+'),
+						new Item(5,3,2,'/'),
+						new GameDev(5,4,16)
+					}));
+					level.addGedung(new Gedung(new Ruangan[] {
+						new Ruangan(6,1,true)
+					}));
+					break;
         }
         return level;
     }

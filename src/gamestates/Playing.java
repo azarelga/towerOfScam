@@ -44,6 +44,9 @@ public class Playing extends State implements StateMethods {
         levelManager = new LevelManager(game);
         background = ImportExport.GetImage(ImportExport.BACKGROUND);
         logo = ImportExport.GetImage(ImportExport.LOGO);
+        levelClear = ImportExport.GetImage(ImportExport.CLEAR);
+        loseScreen = ImportExport.GetImage(ImportExport.LOSE);
+        loading = ImportExport.GetImage(ImportExport.LOADING);
 
         pauseButtons = new Buttons[5];
         pauseButtons[0] = new Buttons((int) Game.GAME_WIDTH / 2, 300, ImportExport.RESUME, Gamestate.PLAYING);
@@ -55,9 +58,6 @@ public class Playing extends State implements StateMethods {
         clearButtons = new Buttons[2];
         clearButtons[0] = new Buttons((int) Game.GAME_WIDTH / 2, 300, ImportExport.NEXT, Gamestate.PLAYING);
         clearButtons[1] = new Buttons((int) Game.GAME_WIDTH / 2, 380, ImportExport.HOME, Gamestate.MENU);
-        levelClear = ImportExport.GetImage(ImportExport.CLEAR);
-        loseScreen = ImportExport.GetImage(ImportExport.LOSE);
-        loading = ImportExport.GetImage(ImportExport.LOADING);
     }
 
     @Override
@@ -106,7 +106,7 @@ public class Playing extends State implements StateMethods {
         pressedKeys.put(e.getKeyCode(), true);
         if ((e.getKeyCode() == KeyEvent.VK_SPACE || checkRoomAvailability(e))
                 && !levelManager.getCurrentLevel().getJudol().isTeleporting()
-                && !paused) {
+                && !paused && Gamestate.control == 0) {
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_UP:
                 case KeyEvent.VK_W:
@@ -139,32 +139,30 @@ public class Playing extends State implements StateMethods {
         }
     }
 
+    private boolean checkRoom(int x, int y) {
+        return levelManager.getCurrentLevel().cekRuangan(
+                levelManager.getCurrentLevel().getJudol().getxIndex()+x,
+                levelManager.getCurrentLevel().getJudol().getyIndex()+y);
+    }
+
     private boolean checkRoomAvailability(KeyEvent e) {
         boolean isAvailable = false;
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
             case KeyEvent.VK_W:
-                isAvailable = levelManager.getCurrentLevel().cekRuangan(
-                        levelManager.getCurrentLevel().getJudol().getxIndex(),
-                        levelManager.getCurrentLevel().getJudol().getyIndex() + 1);
+                isAvailable = checkRoom(0,1);
                 break;
             case KeyEvent.VK_DOWN:
             case KeyEvent.VK_S:
-                isAvailable = levelManager.getCurrentLevel().cekRuangan(
-                        levelManager.getCurrentLevel().getJudol().getxIndex(),
-                        levelManager.getCurrentLevel().getJudol().getyIndex() - 1);
+                isAvailable = checkRoom(0,-1);
                 break;
             case KeyEvent.VK_LEFT:
             case KeyEvent.VK_A:
-                isAvailable = levelManager.getCurrentLevel().cekRuangan(
-                        levelManager.getCurrentLevel().getJudol().getxIndex() - 1,
-                        levelManager.getCurrentLevel().getJudol().getyIndex());
+                isAvailable = checkRoom(-1,0);
                 break;
             case KeyEvent.VK_RIGHT:
             case KeyEvent.VK_D:
-                isAvailable = levelManager.getCurrentLevel().cekRuangan(
-                        levelManager.getCurrentLevel().getJudol().getxIndex() + 1,
-                        levelManager.getCurrentLevel().getJudol().getyIndex());
+                isAvailable = checkRoom(1, 0);
                 break;
         }
         return isAvailable;

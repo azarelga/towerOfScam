@@ -61,7 +61,6 @@ public class Settings extends State implements StateMethods {
     public void mousePressed(MouseEvent e) {
         for (int i = 0; i<3;i++) {
             if (isIn(e, buttons.getBounds()[i])) {
-                System.out.println(i + "Clicked");
                 buttons.setMousePressed(i, true);
             }
         }
@@ -76,7 +75,7 @@ public class Settings extends State implements StateMethods {
         for (int i = 0; i<3;i++) {
             if (isIn(e, buttons.getBounds()[i])) {
                 if(buttons.isMousePressed()) {
-                    buttons.applyGamestate();
+                    buttons.applyGamestate(game);
                 }
             }
         }

@@ -49,8 +49,7 @@ public class GameDev extends Ruangan {
 			g.drawImage(animations[playerAction][aniIndex], x, y,
 					(int) (animations[playerAction][aniIndex].getWidth() * ROOMSCALE),
 					(int) (animations[playerAction][aniIndex].getHeight() * ROOMSCALE), null);
-			if (playerAction == 0) hover.draw(g, x + gdWidth/2,(int)(y-30*ROOMSCALE), getEnergy());
-			// g.drawString(Integer.toString(getEnergy()), (int) (x + gdWidth / 2), (int)(y - gdHeight *ROOMSCALE / 3));
+			if (playerAction == 0) hover.draw(g, x + gdWidth/2,(int)(y-30*ROOMSCALE), Integer.toString(getEnergy()));
 		}
 	}
 

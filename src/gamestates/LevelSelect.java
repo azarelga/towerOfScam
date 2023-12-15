@@ -27,7 +27,6 @@ public class LevelSelect extends State implements StateMethods{
         background = ImportExport.GetImage(ImportExport.BACKGROUNDMENU);
         buttons = new LevelButtons(Game.GAME_WIDTH / 2, Game.GAME_HEIGHT / 2);   
         logo = ImportExport.GetImage(ImportExport.LOGO);
-        
     }
 
     @Override
@@ -61,7 +60,7 @@ public class LevelSelect extends State implements StateMethods{
 
     @Override
     public void mousePressed(MouseEvent e) {
-        for (int i = 0; i<11;i++) {
+        for (int i = 0; i<15;i++) {
             if (isIn(e, buttons.getBounds()[i])) {
                 buttons.setMousePressed(i, true);
             }
@@ -75,7 +74,7 @@ public class LevelSelect extends State implements StateMethods{
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        for (int i = 0; i<11;i++) {
+        for (int i = 0; i<15;i++) {
             if (isIn(e, buttons.getBounds()[i])) {
                 if(buttons.isMousePressed()) {
                     Gamestate.level = i;
@@ -88,7 +87,7 @@ public class LevelSelect extends State implements StateMethods{
     }
 
     private void resetButtons() {
-        for (int i = 0; i<11;i++) {
+        for (int i = 0; i<15;i++) {
             buttons.setMousePressed(i, false);
         }
     }
