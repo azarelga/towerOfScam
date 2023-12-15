@@ -29,6 +29,7 @@ public class AudioPlayer {
     }
 
     private void loadSong() {
+    	songs = new Clip[1];
         songs[0] = getClip("bgm");
     }
 
