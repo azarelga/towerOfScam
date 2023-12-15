@@ -18,7 +18,7 @@ public class Game implements Runnable {
 	private Menu menu;
 	public final static float SCALE = 2f;
 	private final int FPS = 200;
-	private final int UPS_SET = 400;
+	private final int UPS_SET = 280;
 	public final static int GAME_WIDTH = 1280;
 	public final static int GAME_HEIGHT = 720;
 

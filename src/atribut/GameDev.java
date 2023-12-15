@@ -11,6 +11,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import level.Ruangan;
+import ui.HoverText;
 import utilities.ImportExport;
 
 public class GameDev extends Ruangan {
@@ -27,6 +28,7 @@ public class GameDev extends Ruangan {
 	// intrinsic variables
 	private int health;
 	private int x, y;
+	private HoverText hover;
 
 	// constructor
 	public GameDev(int xPos, int yPos, int health) {
@@ -37,6 +39,7 @@ public class GameDev extends Ruangan {
 		this.x = (int) ((this.xPos - 1) * HORIZONTALDISTANCE) + X_START_ROOM + roomWidth / 2;
 		this.y = (int) (Y_START - ((this.yPos - 1) * VERTICALDISTANCE) - (gdHeight+20) * ROOMSCALE);
 		this.health = health;
+		this.hover = new HoverText(Color.RED);
 	}
 
 	// animation methods
@@ -46,9 +49,8 @@ public class GameDev extends Ruangan {
 			g.drawImage(animations[playerAction][aniIndex], x, y,
 					(int) (animations[playerAction][aniIndex].getWidth() * ROOMSCALE),
 					(int) (animations[playerAction][aniIndex].getHeight() * ROOMSCALE), null);
-			g.setFont(g.getFont().deriveFont(50.0f * ROOMSCALE));
-			g.setColor(Color.RED);
-			if (playerAction == 0) g.drawString(Integer.toString(getEnergy()), (int) (x + gdWidth / 2), (int)(y - gdHeight *ROOMSCALE / 3));
+			if (playerAction == 0) hover.draw(g, x + gdWidth/2,(int)(y-30*ROOMSCALE), getEnergy());
+			// g.drawString(Integer.toString(getEnergy()), (int) (x + gdWidth / 2), (int)(y - gdHeight *ROOMSCALE / 3));
 		}
 	}
 

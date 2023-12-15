@@ -7,13 +7,18 @@ public class Gedung {
     private Ruangan[] Ruangan;
     private int emptyCounter = 0;
 
-    public int getTotalRoom() {
-        return this.TotalRoom;
-    }
-
     public Gedung(Ruangan[] Ruangan) {
         this.Ruangan = Ruangan;
         this.TotalRoom = Ruangan.length;
+        for (Ruangan ruangan : Ruangan) {
+            if (ruangan.getIsEmpty() == true) {
+                emptyCounter++;
+            }
+        }
+    }
+
+    public int getTotalRoom() {
+        return this.TotalRoom;
     }
 
     public void resetState() {
@@ -22,12 +27,12 @@ public class Gedung {
         }
     }
     
+    public void setEmpty(int y) {
+        Ruangan[y].setIsEmpty(true);
+        emptyCounter++;
+    }
+
     public int countEmpty() {
-        for (Ruangan ruangan : Ruangan) {
-            if (ruangan.getIsEmpty()) {
-                emptyCounter++;
-            }
-        }
         return emptyCounter;
     }
 

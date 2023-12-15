@@ -51,8 +51,6 @@ public class LevelButtons {
         }
 		B_WIDTH=(int)(81*SCALE);
 		B_HEIGHT=(int)(81*SCALE);
-        // xSpace = (int)(xSpace*SCALE);
-        // ySpace = (int)(ySpace*SCALE);
 		xOffsetCenter = B_WIDTH / 2;
 		home = ImportExport.GetImage(ImportExport.HOME);
         homeWidth = (int)(home.getWidth()*WIDEBUTTONSCALE);

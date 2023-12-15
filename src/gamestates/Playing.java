@@ -31,6 +31,9 @@ public class Playing extends State implements StateMethods {
     private Buttons[] pauseButtons;
     private Buttons[] clearButtons;
     private BufferedImage levelClear;
+    private BufferedImage loseScreen;
+    private BufferedImage loading;
+    private boolean lose;
 
     public Playing(Game game) {
         super(game);
@@ -53,6 +56,8 @@ public class Playing extends State implements StateMethods {
         clearButtons[0] = new Buttons((int) Game.GAME_WIDTH / 2, 300, ImportExport.NEXT, Gamestate.PLAYING);
         clearButtons[1] = new Buttons((int) Game.GAME_WIDTH / 2, 380, ImportExport.HOME, Gamestate.MENU);
         levelClear = ImportExport.GetImage(ImportExport.CLEAR);
+        loseScreen = ImportExport.GetImage(ImportExport.LOSE);
+        loading = ImportExport.GetImage(ImportExport.LOADING);
     }
 
     @Override
@@ -61,9 +66,10 @@ public class Playing extends State implements StateMethods {
             levelManager.loadLevel();
             Gamestate.control = 0;
         }
-        if (!cleared) {
+        if (!cleared && !lose) {
             levelManager.update();
             cleared = levelManager.getCurrentLevel().getIsBeaten();
+            lose = levelManager.getCurrentLevel().getLose();
         }
     }
 
@@ -80,9 +86,7 @@ public class Playing extends State implements StateMethods {
                     mb.draw(g);
             }
         } else {
-            g.setFont(g.getFont().deriveFont(100.0f));
-            FontMetrics fm = g.getFontMetrics();
-            g.drawString("Loading...", GAME_HEIGHT / 2 - fm.getHeight() / 2, GAME_WIDTH / 2 - fm.getAscent() / 2);
+            g.drawImage(loading,(int)(GAME_WIDTH / 2 - loading.getWidth()/2), GAME_HEIGHT/2,null);
         }
         if (cleared) {
             g.drawImage(levelClear, GAME_WIDTH / 2 - 385 / 2,
@@ -90,6 +94,10 @@ public class Playing extends State implements StateMethods {
             clearButtons[0].draw(g);
             clearButtons[1].draw(g);
             pauseButtons[2].draw(g);
+        }
+        if (lose) {
+            g.drawImage(loseScreen, GAME_WIDTH / 2 - 888 / 2,
+                    GAME_HEIGHT/2, 888, 184, null);
         }
     }
 
@@ -123,6 +131,7 @@ public class Playing extends State implements StateMethods {
                                     || pressedKeys.getOrDefault(KeyEvent.VK_D, false));
                     break;
                 case KeyEvent.VK_SPACE:
+                    lose = false;
                     levelManager.resetLevel();
                     levelManager.getCurrentLevel().getJudol().resetPosition();
                     break;

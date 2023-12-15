@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import level.Ruangan;
+import ui.HoverText;
 import utilities.ImportExport;
 
 public class Judol extends Entity {
@@ -19,9 +20,10 @@ public class Judol extends Entity {
 	public boolean moving = false, jumping = false;
 	private boolean teleFrom = false, teleTo = false;
 	private boolean left, up, right, down;
+	private HoverText hover;
 
 	// intrinsic variables
-	private int energy;
+	public int energy;
 	private int xIndex = 1;
 	private int yIndex = 1;
 	private int scoreMax;
@@ -29,13 +31,13 @@ public class Judol extends Entity {
 
 	// constructor
 	public Judol(int currentLevel, int energy) {
-		super(X_START_ROOM, Y_START, (int) (100 * ROOMSCALE), (int) (100 * ROOMSCALE));
+		super(X_START_ROOM, Y_START, (int) (65 * ROOMSCALE), (int) (89 * ROOMSCALE));
 		this.energy = energy;
-
 		this.x = (int) (getPostXJ() + offsetX);
 		this.y = (int) (getPostYJ() + offsetY);
 		this.scoreMax = 0;
 		this.currentLevel = currentLevel;
+		this.hover = new HoverText(Color.BLUE);
 		loadAnimations();
 	}
 
@@ -127,15 +129,12 @@ public class Judol extends Entity {
 
 	public void render(Graphics g) {
 		if (teleFrom || teleTo) {
-			g.drawImage(animations[playerAction][aniIndex], (int) (getPostXJ()), (int) (getPostYJ() - (30 * ROOMSCALE)),
+			g.drawImage(animations[playerAction][aniIndex], (int) (getPostXJ()-20*ROOMSCALE), (int) (getPostYJ() - (23 * ROOMSCALE)),
 					(int) (98 * ROOMSCALE), (int) (150 * ROOMSCALE), null);
 		} else {
 			g.drawImage(animations[playerAction][aniIndex], getPostXJ(), getPostYJ(), width, height, null);
 		}
-		g.setFont(g.getFont().deriveFont(50.0f * ROOMSCALE));
-		g.setColor(Color.BLUE);
-		g.drawString(Integer.toString(GetEnergy()), (int) (getPostXJ() + width / 2),
-				getPostYJ() - (int) (height * ROOMSCALE / 3));
+		hover.draw(g, getPostXJ() + width/2,(int) (getPostYJ()-30*ROOMSCALE), energy);
 	}
 
 	private void updateAniTick() {
@@ -187,7 +186,7 @@ public class Judol extends Entity {
 		animations[1][8] = img.getSubimage(878, 1358, 98, 150);
 		animations[1][9] = img.getSubimage(1117, 1358, 98, 150);
 		for (int j = 0; j < animations[2].length; j++) {
-			animations[2][j] = img.getSubimage(128 + 256 * j, 648, 100, 100);
+			animations[2][j] = img.getSubimage(128 + 256 * j, 648, 65, 89);
 		}
 	}
 
@@ -274,7 +273,6 @@ public class Judol extends Entity {
 		this.yIndex = 1;
 		this.x = X_START_ROOM + offsetX;
 		this.y = Y_START + offsetY;
-		this.energy = 5;
 	}
 
 }

@@ -39,6 +39,8 @@ public class ImportExport {
     public static final String CLEAR = "Level_Cleared.png";
     public static final String SFX = "SFX.png";
     public static final String NEXT = "Next_button.png";
+    public static final String LOSE = "Lose.png";
+    public static final String LOADING = "Loading.png";
 
     public static BufferedImage GetImage(String filename) {
         BufferedImage img = null;

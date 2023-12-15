@@ -44,6 +44,7 @@ public class Ruangan {
     public void setIsEmpty(boolean isEmpty) {
         this.isEmpty = isEmpty;
     }
+
     public boolean getIsEmpty() {
         return this.isEmpty;
     }
@@ -63,9 +64,11 @@ public class Ruangan {
     public char getOperasi() {
         return ' ';
     }
+
     public int getEnergy() {
         return 0;
     }
+    
     public void setEnergy(int energy) {
     }
 
