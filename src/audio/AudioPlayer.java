@@ -25,6 +25,7 @@ public class AudioPlayer {
     public AudioPlayer() {
         loadSong();
         // loadEffects();
+        this.currentSongId = 0;
         playSong(BGM);
     }
 
@@ -43,7 +44,7 @@ public class AudioPlayer {
     }
 
     private Clip getClip(String name) {
-        URL url = getClass().getResource(name + ".wav");
+        URL url = AudioPlayer.class.getResource("/"+name + ".wav");
         if (url == null) {
             System.out.println("Error loading audio file: " + name);
             return null;

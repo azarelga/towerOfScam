@@ -86,6 +86,7 @@ public class SettingsButtons {
 	public void applyGamestate(Game game) {
 		if (buttonState == 0) {
 			game.getAudioPlayer().toggleBGMMute();
+			isBGM = (isBGM + 1) % 2;
 		} else if (buttonState == 1) {
 			isSFX = (isSFX + 1) % 2;
 		} else if (buttonState == 2)
