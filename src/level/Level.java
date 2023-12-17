@@ -2,6 +2,8 @@ package level;
 
 import static main.Game.GAME_HEIGHT;
 import static main.Game.GAME_WIDTH;
+import static utilities.Constants.GameConstants.ROOMSCALE;
+import static utilities.Constants.GameConstants.X_START_ROOM;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -24,6 +26,7 @@ public class Level {
     private int startEnergy;
 
     public Level(int LevelIndex, int startEnergy) {
+        X_START_ROOM = (int) (X_START_ROOM * ROOMSCALE);
         this.LevelIndex = LevelIndex;
         this.Gedungs = new ArrayList<Gedung>();
         this.jumlahRuangan = 0;
@@ -39,16 +42,18 @@ public class Level {
         int judolY = judol.getyIndex();
         if (getRuangan(judolX, judolY).getIsEmpty() == false) {
             if (getRuangan(judolX, judolY).getType() == Ruangan.GAMEDEV) {
-                if (judol.GetEnergy() > getRuangan(judolX, judolY).getEnergy()) {
-                    judol.ReceiveEnergy(getRuangan(judolX, judolY).getEnergy());
+                if (judol.getEnergy() > getRuangan(judolX, judolY).getEnergy()) {
+                    judol.receiveEnergy(getRuangan(judolX, judolY).getEnergy());
                     Gedungs.get(judolX-1).setEmpty(judolY-1);
                 } else {
                     if (!judol.isTeleporting()) setLose(true);
                 }
             } else if (getRuangan(judolX, judolY).getType() == Ruangan.ITEM) {
-                judol.CastItem(getRuangan(judolX, judolY));
-                if (judol.GetEnergy() >= 0 && !judol.isTeleporting()) setLose(true);
-                else Gedungs.get(judolX-1).setEmpty(judolY-1);
+                if (judol.CastItem(getRuangan(judolX, judolY)) <= 0 && !judol.isTeleporting()) setLose(true);
+                else if (judol.CastItem(getRuangan(judolX, judolY)) > 0 && !judol.isTeleporting()){
+                    Gedungs.get(judolX-1).setEmpty(judolY-1);
+                    judol.setEnergy(judol.CastItem(getRuangan(judolX, judolY)));
+                }
             }
         }
         if (getRuangan(judolX, judolY).getFinalRoom() == true) {
@@ -64,7 +69,7 @@ public class Level {
 
     public boolean setWin() {
         this.isBeaten = true;
-        this.ScoreByUser = judol.GetEnergy();
+        this.ScoreByUser = judol.getEnergy();
         return true;
     }
 
@@ -106,10 +111,6 @@ public class Level {
 
     public void setLevelIndex(int LevelIndex) {
         this.LevelIndex = LevelIndex;
-    }
-
-    public boolean isIsBeaten() {
-        return this.isBeaten;
     }
 
     public boolean getIsBeaten() {
@@ -162,7 +163,6 @@ public class Level {
     }
 
     public void render(Graphics g) {
-        
         for (Gedung gedung : Gedungs) {
             gedung.render(g);
         }

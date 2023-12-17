@@ -36,7 +36,7 @@ public class Item extends Ruangan{
 		loadItem();
 		this.type = ITEM;
 		this.x = (int) ((this.xPos - 1) * HORIZONTALDISTANCE) + X_START_ROOM + roomWidth / 2;
-		this.y = (int) (Y_START - ((this.yPos - 1) * VERTICALDISTANCE)-(itemHeight+offsetY));
+		this.y = (int) (Y_START - ((this.yPos - 1) * VERTICALDISTANCE)-(itemHeight*ROOMSCALE+offsetY));
 		this.string = operasi+Integer.toString(number);
 	}
 
@@ -63,7 +63,7 @@ public class Item extends Ruangan{
 	public void render(Graphics g) {
 		super.render(g);
 		if (isActive == 1) {
-			g.drawImage(img, x, y, itemWidth, itemHeight, null);
+			g.drawImage(img, x, y,(int)(itemWidth*ROOMSCALE),(int) (itemHeight*ROOMSCALE), null);
 			hover.draw(g, x + itemWidth/2, y - (int)(30*ROOMSCALE), string);
 		}
 	}

@@ -4,11 +4,11 @@ import level.Ruangan;
 
 public class Constants {
 	public static class GameConstants {
-		public static final int X_START = 69 + Ruangan.roomWidth / 2;
-		public static final int X_START_ROOM = 99;
+		public static int X_START = 69 + Ruangan.roomWidth / 2;
+public static int X_START_ROOM = 99;
 		public static final int Y_START = 651;
 		public static float ROOMSCALE = 0.5f;
-		public static float HORIZONTALDISTANCE = 300.0f;
+				public static float HORIZONTALDISTANCE = 300.0f;
 		public static float VERTICALDISTANCE = 40.0f;
 		public static float SPEEDXCAMERA = 1.0f;
 		public static void resetConstants() {

@@ -9,8 +9,10 @@ import static utilities.Constants.GameConstants.Y_START;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 import level.Ruangan;
+import main.Game;
 import ui.HoverText;
 import utilities.ImportExport;
 
@@ -20,6 +22,7 @@ public class GameDev extends Ruangan {
 	private BufferedImage animations[][];
 	private int animationLength[] = { 6, 10 };
 	private int aniTick, aniIndex, aniSpeed = 25;
+	private int GameDevKind;
 	private int gdHeight = 85;
 	private int gdWidth = 62;
 	private int playerAction = 0;
@@ -37,7 +40,8 @@ public class GameDev extends Ruangan {
 		loadAnimations();
 		this.type = GAMEDEV;
 		this.x = (int) ((this.xPos - 1) * HORIZONTALDISTANCE) + X_START_ROOM + roomWidth / 2;
-		this.y = (int) (Y_START - ((this.yPos - 1) * VERTICALDISTANCE) - (gdHeight+20) * ROOMSCALE);
+		this.y = (int) (Y_START - ((this.yPos - 1) * VERTICALDISTANCE)
+				- (animations[0][aniIndex].getHeight() + 20) * ROOMSCALE);
 		this.health = health;
 		this.hover = new HoverText(Color.RED);
 	}
@@ -49,19 +53,44 @@ public class GameDev extends Ruangan {
 			g.drawImage(animations[playerAction][aniIndex], x, y,
 					(int) (animations[playerAction][aniIndex].getWidth() * ROOMSCALE),
 					(int) (animations[playerAction][aniIndex].getHeight() * ROOMSCALE), null);
-			if (playerAction == 0) hover.draw(g, x + gdWidth/2,(int)(y-30*ROOMSCALE), Integer.toString(getEnergy()));
+			if (playerAction == 0)
+				hover.draw(g, x + gdWidth / 2, (int) (y - 30 * ROOMSCALE), Integer.toString(getEnergy()));
 		}
 	}
 
 	public void loadAnimations() {
 		animations = new BufferedImage[2][10];
-		BufferedImage img = ImportExport.GetImage(ImportExport.GAMEDEVS[0]);
-		for (int i = 0; i < 6; i++) {
-			animations[0][i] = img.getSubimage((i * 256) + 99, 138, gdWidth, gdHeight);
+		Random rand = new Random();
+		GameDevKind = rand.nextInt(ImportExport.GAMEDEVS.length);
+		BufferedImage img = ImportExport.GetImage(ImportExport.GAMEDEVS[GameDevKind]);
+		switch (GameDevKind) {
+			case 0:
+				for (int i = 0; i < 6; i++) {
+					animations[0][i] = img.getSubimage((i * 256) + 99, 138, gdWidth, gdHeight);
+				}
+				for (int i = 0; i < 10; i++) {
+					animations[1][i] = img.getSubimage((i * 245) + 117, 303, 170, 204); 
+				}
+				break;
+			case 1:
+				for (int i = 0; i < 6; i++) {
+					animations[0][i] = img.getSubimage((i * 256) + 96, 127, 70, 95);
+				}
+				for (int i = 0; i < 10; i++) {
+					animations[1][i] = img.getSubimage((i * 245) + 117, 289, 106, 212); 
+				}
+				break;
+			case 2:
+				for (int i = 0; i < 6; i++) {
+					animations[0][i] = img.getSubimage((i * 256) + 101, 160, 56, 77);
+				}
+				for (int i = 0; i < 10; i++) {
+					animations[1][i] = img.getSubimage((i * 245) + 117, 320, 170, 204); 
+				}
+				break;
+
 		}
-		for (int i = 0; i < 10; i++) {
-			animations[1][i] = img.getSubimage((i * 245) + 117, 303, 170, 204); // 181 507
-		}
+
 	}
 
 	public void setAnimation() {
@@ -69,7 +98,8 @@ public class GameDev extends Ruangan {
 		if (this.isEmpty == false) {
 			playerAction = 0;
 		} else {
-			if (playerAction != 1) this.y = this.y - gdHeight;
+			if (playerAction != 1)
+				this.y = this.y - gdHeight;
 			playerAction = 1;
 		}
 		if (startAni != playerAction)
@@ -79,7 +109,8 @@ public class GameDev extends Ruangan {
 	@Override
 	public void resetState() {
 		this.isEmpty = false;
-		if (playerAction == 1) this.y += gdHeight;
+		if (playerAction == 1)
+			this.y += gdHeight;
 		this.isActive = 1;
 		this.playerAction = 0;
 	}

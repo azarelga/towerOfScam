@@ -88,6 +88,7 @@ public class SettingsButtons {
 			game.getAudioPlayer().toggleBGMMute();
 			isBGM = (isBGM + 1) % 2;
 		} else if (buttonState == 1) {
+			game.getAudioPlayer().toggleEffectMute();
 			isSFX = (isSFX + 1) % 2;
 		} else if (buttonState == 2)
 			Gamestate.state = Gamestate.MENU;

@@ -191,25 +191,29 @@ public class Judol extends Entity {
 	}
 
 	// intrinsic methods
-	public void CastItem(Ruangan ruangan) {
+	public int CastItem(Ruangan ruangan) {
+		int temp = this.energy;
 		if (ruangan.getOperasi() == '+') {
-			this.energy += ruangan.getEnergy();
+			temp += ruangan.getEnergy();
 		} else if (ruangan.getOperasi() == '-') {
-			this.energy -= ruangan.getEnergy();
+			temp -= ruangan.getEnergy();
 		} else if (ruangan.getOperasi() == '*') {
-			this.energy *= ruangan.getEnergy();
+			temp *= ruangan.getEnergy();
 		} else if (ruangan.getOperasi() == '/') {
-			this.energy /= ruangan.getEnergy();
+			temp /= ruangan.getEnergy();
 		}
-		ruangan.setIsEmpty(true);
+		return temp;
 	}
 
-	public int GetEnergy() {
+	public int getEnergy() {
 		return this.energy;
 	}
 
-	public void ReceiveEnergy(int energy) {
+	public void receiveEnergy(int energy) {
 		this.energy += energy;
+	}
+	public void setEnergy(int energy) {
+		this.energy = energy;
 	}
 
 	public void MoveJudol(float newX, float newY) {

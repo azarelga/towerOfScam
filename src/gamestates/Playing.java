@@ -86,54 +86,56 @@ public class Playing extends State implements StateMethods {
                     mb.draw(g);
             }
         } else {
-            g.drawImage(loading,(int)(GAME_WIDTH / 2 - loading.getWidth()/2), GAME_HEIGHT/2,null);
+            g.drawImage(loading, (int) (GAME_WIDTH / 2 - loading.getWidth() / 2), GAME_HEIGHT / 2, null);
         }
         if (cleared) {
             g.drawImage(levelClear, GAME_WIDTH / 2 - 385 / 2,
                     190, 385, 364, null);
-            clearButtons[0].draw(g);
+            if (levelManager.getCurrentLevel().getLevelIndex() != 14) clearButtons[0].draw(g);
             clearButtons[1].draw(g);
             pauseButtons[2].draw(g);
         }
         if (lose) {
             g.drawImage(loseScreen, GAME_WIDTH / 2 - 888 / 2,
-                    GAME_HEIGHT/2, 888, 184, null);
+                    GAME_HEIGHT / 2, 888, 184, null);
         }
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
         pressedKeys.put(e.getKeyCode(), true);
-        if ((e.getKeyCode() == KeyEvent.VK_SPACE || checkRoomAvailability(e))
-                && !levelManager.getCurrentLevel().getJudol().isTeleporting()
+        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+            lose = false;
+            levelManager.resetLevel();
+            levelManager.getCurrentLevel().getJudol().resetPosition();
+        }
+        if (checkRoomAvailability(e) && !levelManager.getCurrentLevel().getJudol().isTeleporting()
                 && !paused && Gamestate.control == 0) {
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_UP:
                 case KeyEvent.VK_W:
                     levelManager.getCurrentLevel().getJudol().setUp(pressedKeys.getOrDefault(KeyEvent.VK_UP, false)
                             || pressedKeys.getOrDefault(KeyEvent.VK_W, false));
+                    game.getAudioPlayer().playEffect(0);
                     break;
                 case KeyEvent.VK_DOWN:
                 case KeyEvent.VK_S:
                     levelManager.getCurrentLevel().getJudol().setDown(pressedKeys.getOrDefault(KeyEvent.VK_DOWN, false)
                             || pressedKeys.getOrDefault(KeyEvent.VK_S, false));
+                    game.getAudioPlayer().playEffect(0);
                     break;
                 case KeyEvent.VK_LEFT:
                 case KeyEvent.VK_A:
                     levelManager.getCurrentLevel().getJudol().setLeft(pressedKeys.getOrDefault(KeyEvent.VK_LEFT, false)
                             || pressedKeys.getOrDefault(KeyEvent.VK_A, false));
+                    game.getAudioPlayer().playEffect(0);
                     break;
                 case KeyEvent.VK_RIGHT:
                 case KeyEvent.VK_D:
-                    System.out.println(pressedKeys);
                     levelManager.getCurrentLevel().getJudol()
                             .setRight(pressedKeys.getOrDefault(KeyEvent.VK_RIGHT, false)
                                     || pressedKeys.getOrDefault(KeyEvent.VK_D, false));
-                    break;
-                case KeyEvent.VK_SPACE:
-                    lose = false;
-                    levelManager.resetLevel();
-                    levelManager.getCurrentLevel().getJudol().resetPosition();
+                    game.getAudioPlayer().playEffect(0);
                     break;
             }
         }
@@ -141,8 +143,8 @@ public class Playing extends State implements StateMethods {
 
     private boolean checkRoom(int x, int y) {
         return levelManager.getCurrentLevel().cekRuangan(
-                levelManager.getCurrentLevel().getJudol().getxIndex()+x,
-                levelManager.getCurrentLevel().getJudol().getyIndex()+y);
+                levelManager.getCurrentLevel().getJudol().getxIndex() + x,
+                levelManager.getCurrentLevel().getJudol().getyIndex() + y);
     }
 
     private boolean checkRoomAvailability(KeyEvent e) {
@@ -150,15 +152,15 @@ public class Playing extends State implements StateMethods {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
             case KeyEvent.VK_W:
-                isAvailable = checkRoom(0,1);
+                isAvailable = checkRoom(0, 1);
                 break;
             case KeyEvent.VK_DOWN:
             case KeyEvent.VK_S:
-                isAvailable = checkRoom(0,-1);
+                isAvailable = checkRoom(0, -1);
                 break;
             case KeyEvent.VK_LEFT:
             case KeyEvent.VK_A:
-                isAvailable = checkRoom(-1,0);
+                isAvailable = checkRoom(-1, 0);
                 break;
             case KeyEvent.VK_RIGHT:
             case KeyEvent.VK_D:
@@ -206,7 +208,7 @@ public class Playing extends State implements StateMethods {
                     if (i == 0) {
                         levelManager.incrementLevel();
                         Gamestate.control = 1;
-                    } else levelManager.incrementLevel();
+                    } else
                     clearButtons[i].applyGamestate();
                     cleared = false;
                 }

@@ -39,13 +39,13 @@ public class Gedung {
     }
 
     public void render(Graphics g) {
-        for (Ruangan ruangan : Ruangan) {
-            ruangan.render(g);
+        for (int i = Ruangan.length - 1; i >= 0; i--) {
+            Ruangan[i].render(g);
         }
     }
     public void update() {
-        for (Ruangan ruangan : Ruangan) {
-            ruangan.update();
+        for (int i = Ruangan.length - 1; i >= 0; i--) {
+            Ruangan[i].update();
         }
     }
 

@@ -8,7 +8,6 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.BooleanControl;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
@@ -18,29 +17,26 @@ public class AudioPlayer {
 
     private Clip[] songs, effects;
     private int currentSongId;
-    private float volume = 1f;
     private boolean songMute, effectMute;
     private Random rand = new Random();
 
     public AudioPlayer() {
         loadSong();
-        // loadEffects();
-        this.currentSongId = 0;
+        loadEffects();
+        this.currentSongId = BGM;
         playSong(BGM);
     }
 
     private void loadSong() {
     	songs = new Clip[1];
-        songs[0] = getClip("bgm");
+        songs[BGM] = getClip("bgm");
     }
 
     private void loadEffects() {
-        String[] effectNames = { "die", "jump", "gameover", "lvlcompleted", "attack1", "attack2", "attack3" };
+        String[] effectNames = {"teleport"};
         effects = new Clip[effectNames.length];
         for (int i = 0; i < effects.length; i++)
             effects[i] = getClip(effectNames[i]);
-
-        updateEffectsVolume();
     }
 
     private Clip getClip(String name) {
@@ -97,16 +93,5 @@ public class AudioPlayer {
             BooleanControl booleanControl = (BooleanControl) c.getControl(BooleanControl.Type.MUTE);
             booleanControl.setValue(effectMute);
         }
-        // if (!effectMute) playEffect(JUMP);
     }
-
-    private void updateEffectsVolume() {
-        for (Clip c : effects) {
-            FloatControl gainControl = (FloatControl) c.getControl(FloatControl.Type.MASTER_GAIN);
-            float range = gainControl.getMaximum() - gainControl.getMinimum();
-            float gain = (range * volume) + gainControl.getMinimum();
-            gainControl.setValue(gain);
-        }
-    }
-
 }
