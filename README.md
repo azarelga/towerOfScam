@@ -1,5 +1,8 @@
 <p align="center">
-<img src="https://github.com/azarelga/towerOfScam/assets/89150137/2ab602d4-f630-4a4d-bf0a-d2a97d028be1" width=350>
+<img src="/res/Logov3.png" width=350>
+  <br>
+  <br>
+<img src="/res/Gameplay.png" width=800>
 </p>
 
 # Tower Of Scam
@@ -18,3 +21,6 @@ Judol merupakan tokoh utama dari game ini. Judol sangat membenci game game scam 
 
 Tiap levelnya tongkat sihir Judol mempunyai kapasitas energy, kapasitas energy tersebut dapat bertambah dengan cara menghilangkan game developer scam. Namun dibutuhkan kapasitas tongkat sihir yang berbeda beda untuk menghilangkan game developer scam. Terdapat buff dan debuff tongkat sihir pada ruangan tertentu. Untuk setiap level Judol harus membersihkan seluruh ruangan yang ada pada gedung - gedung perusahaan game. Untuk memenangkan suatu level, Judol harus berhati hati dalam memilih urutan ruangan yang dikunjungi.
 
+# Credits
+
+- KaarinGaming - Platformer Tutorial on YouTube
